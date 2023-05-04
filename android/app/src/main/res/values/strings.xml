@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">darak_app</string>
+    <string name="facebook_app_id">185491484350053</string>
+    <string name="fb_login_protocol_scheme">fbbca911899d81a9312ade3932bee3d33f</string>
+
+</resources>

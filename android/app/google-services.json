@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "970638981919",
+    "project_id": "cool-automata-380420",
+    "storage_bucket": "cool-automata-380420.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970638981919:android:55d0de3d62fda7f0928e2a",
+        "android_client_info": {
+          "package_name": "com.darakproject.darak_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970638981919-7schsv7r3joqe2bmihv0br8ao7ro98do.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz1FYuBFu4rLskQvGUr-t2nco0NI4_z1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970638981919-7schsv7r3joqe2bmihv0br8ao7ro98do.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
