@@ -3,6 +3,7 @@ import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/firebase_options.dart';
 import 'package:darak_project/module/splash/splash_controller.dart';
 import 'package:darak_project/module/splash/splash_screen.dart';
+import 'package:darak_project/module/worker/addInfo/add_info_screen.dart';
 import 'package:darak_project/services/common/config.dart';
 import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:darak_project/services/common/user_store.dart';
@@ -19,8 +20,17 @@ void main() async {
   Get.put<UserStore>(UserStore());
   // if(kIsWeb){
      await Firebase.initializeApp(
-       options: DefaultFirebaseOptions.currentPlatform,
+      options: DefaultFirebaseOptions.currentPlatform,
      );
+  // late String home;
+  //
+  // if(!UserStore.t0.hasToken){
+  //   home = Routes.signInRoute;
+  //
+  // }else{
+  //
+  //   home=Routes.layoutRoute;
+  // }
   //       options: FirebaseOptions(
   //           apiKey: Constants.apiKey,
   //           appId: Constants.appId,
@@ -31,11 +41,13 @@ void main() async {
   // }else{
   //   await Firebase.initializeApp();
   // }
-  runApp( MyApp());
+  runApp( MyApp(/*home: home*/));
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
+  late String home;
+
+  MyApp({super.key,/*required this.home*/});
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -50,6 +62,7 @@ class MyApp extends StatelessWidget {
             // darkTheme: ThemeApp.dark(),
             initialBinding: Binding(),
             getPages: appRoutes,
+            //initialRoute: Routes.addInfoRoute,
           );
         });
   }

@@ -5,6 +5,12 @@ void dismissKeyboard() {
   FocusManager.instance.primaryFocus?.unfocus();
 }
 
+enum WeightUnits {
+  Lb,
+  Oz,
+  Kg
+}
+
 String duTimeFormat(DateTime dt) {
   var now = DateTime.now();
   var difference = now.difference(dt);

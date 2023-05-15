@@ -1,6 +1,6 @@
 
 import 'package:darak_project/helpers/colors_helper.dart';
-import 'package:darak_project/helpers/texts_heleper.dart';
+import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

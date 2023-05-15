@@ -7,7 +7,6 @@
 // import 'package:olaylar/module/drawer/partner/partner_screen.dart';
 // import 'package:olaylar/module/drawer/reminder/reminder_screen.dart';
 // import 'package:olaylar/module/event/event_screen.dart';
-// import '../module/drawer/addevent/add_new_event_screen.dart';
 // import 'image_helper.dart';
 //
 //

@@ -1,5 +1,9 @@
 class ImageHelper{
   static String pathImg = 'assets/image/';
+  static String cleanImg = '${pathImg}clean_girl.svg';
+  static String clean2Img = '${pathImg}clean2.svg';
+  static String clean3Img = '${pathImg}image-34.png';
+  static String ratImg = '${pathImg}image 1.svg';
 
   //Icons
   static String pathIcon = 'assets/icon/';
@@ -23,4 +27,9 @@ class ImageHelper{
   static String sendIcon = '${pathIcon}send.svg';
   static String uploadIcon = '${pathIcon}document-upload.svg';
   static String camIcon = '${pathIcon}camera.svg';
+  static String starIcon = '${pathIcon}star.svg';
+  static String moreIcon = '${pathIcon}more.svg';
+  static String locationIcon = '${pathIcon}location.svg';
+  static String msgIcon = '${pathIcon}chat.svg';
+  static String cameraIcon = '${pathIcon}ic_camera.svg';
 }

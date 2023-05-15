@@ -25,6 +25,7 @@ class ConfigStore extends GetxController{
     super.onInit();
     isFirstOpen = StorageService.to.getBool(Constants.STRORAGE_DEVICE_FIRST_OPEN_KEY);
 
+
   }
 
   Future<void> getPlatform() async {
@@ -34,6 +35,7 @@ class ConfigStore extends GetxController{
   Future<bool> saveAlreadyOpen() async {
     return StorageService.to.setBool(Constants.STRORAGE_DEVICE_FIRST_OPEN_KEY, true);
   }
+
 
 
 

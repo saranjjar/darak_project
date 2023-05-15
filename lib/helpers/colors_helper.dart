@@ -11,7 +11,9 @@ class ColorHelper {
 
   static const Color divColor = Color(0xFFF4F4F4);
   static const Color offWhiteColor = Color(0xFFB6BBC4);
+
   static const Color offPurpleColor = Color(0xFFF3F4F6);
+  static const Color namepColor = Color(0xFF595959);
 
 
 
