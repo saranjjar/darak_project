@@ -4,6 +4,7 @@ class ImageHelper{
   static String clean2Img = '${pathImg}clean2.svg';
   static String clean3Img = '${pathImg}image-34.png';
   static String ratImg = '${pathImg}image 1.svg';
+  static String mapImg = '${pathImg}map.png';
 
   //Icons
   static String pathIcon = 'assets/icon/';
@@ -32,4 +33,7 @@ class ImageHelper{
   static String locationIcon = '${pathIcon}location.svg';
   static String msgIcon = '${pathIcon}chat.svg';
   static String cameraIcon = '${pathIcon}ic_camera.svg';
+  static String paypalIcon = '${pathIcon}paypal.svg';
+  static String cashIcon = '${pathIcon}cashMoney.svg';
+  static String masterIcon = '${pathIcon}mastercard.svg';
 }

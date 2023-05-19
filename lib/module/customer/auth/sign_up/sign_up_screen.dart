@@ -3,6 +3,7 @@ import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:darak_project/module/customer/auth/sign_in/sign_in_screen.dart';
 import 'package:darak_project/module/customer/auth/sign_up/sign_up_controller.dart';
+import 'package:darak_project/utils/utils.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/textformfield.dart';
 import 'package:flutter/gestures.dart';
@@ -113,7 +114,7 @@ class SignUpScreen extends StatelessWidget {
                        SizedBox(
                         height: 20.h,
                       ),
-                       Obx(() =>                       _controller.isLoading.value
+                       Obx(() =>_controller.isLoading.value
                            ?
                        Center(child: CircularProgressIndicator(color: Theme.of(context).primaryColor))
                            :
@@ -121,6 +122,7 @@ class SignUpScreen extends StatelessWidget {
                          onPressed: () {
                            if (formKey.currentState!.validate()) {
                              _controller.registerWithEmail(context);
+                             dismissKeyboard();
                            }
                          },
                          child: Text(

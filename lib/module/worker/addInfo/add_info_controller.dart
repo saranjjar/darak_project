@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'dart:ui' as ui;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:darak_project/model/sub_category.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -15,6 +13,7 @@ class AddInfoController extends GetxController{
 
   String serviceName = 'Choose service';
   int categoryIndex = 0;
+  String? id ;
 
   getService(){
     return serviceName;
@@ -35,6 +34,8 @@ class AddInfoController extends GetxController{
 
   @override
   void onInit() {
+    var data = Get.parameters;
+    id = data['id']??"";
     usernameController = TextEditingController();
     priceController = TextEditingController();
     bioController = TextEditingController();
@@ -113,6 +114,7 @@ class AddInfoController extends GetxController{
   addInfoWorker({required String subcategoryID}) async {
     isLoadingRequest.value = true;
     final information = SubCategory(
+      id: id,
       username: usernameController.text,
       price: priceController.text,
       location: locationController.text,
@@ -129,9 +131,9 @@ class AddInfoController extends GetxController{
         toFirestore: (SubCategory subCategory, options) =>
             subCategory.toFirestore()
     ).add(information).then((DocumentReference doc) {
-      //textController.clear();
       Get.focusScope?.unfocus();
     });
+    reset();
     isLoadingRequest.value = false;
   }
 }

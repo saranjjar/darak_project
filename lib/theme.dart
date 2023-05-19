@@ -87,6 +87,7 @@ class ThemeApp {
     fontFamily: fontFamily,
     tabBarTheme: TabBarTheme(labelColor: _lightColorScheme.onSurface),
     brightness: Brightness.light,
+    primarySwatch: ColorHelper.primarySwatchColor,
     splashFactory: NoSplash.splashFactory,
     primaryColor: _lightColorScheme.primary,
     canvasColor: _lightColorScheme.background,
@@ -116,14 +117,14 @@ class ThemeApp {
       selectedItemColor: _lightColorScheme.primary,
       unselectedItemColor: ColorHelper.dark3,
     ),
-    inputDecorationTheme: InputDecorationTheme(
+    inputDecorationTheme: const InputDecorationTheme(
       filled: true,
       fillColor: ColorHelper.light2,
-      enabledBorder: const OutlineInputBorder(
+      enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(8)),
         borderSide: BorderSide(color: Colors.transparent),
       ),
-      focusedBorder: const OutlineInputBorder(
+      focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(8),
         ),
@@ -242,9 +243,7 @@ class ThemeApp {
 
   static final _textButtonThemeData = TextButtonThemeData(
     style: TextButton.styleFrom(
-      visualDensity: _commonButtonStyle.visualDensity,
-      backgroundColor: ColorHelper.button,
-      primary: ColorHelper.dark4,
+      foregroundColor: ColorHelper.dark4, visualDensity: _commonButtonStyle.visualDensity,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(8)),
         side: BorderSide(color: Colors.transparent),
@@ -254,9 +253,8 @@ class ThemeApp {
 
   static final _darkTextButtonThemeData = TextButtonThemeData(
     style: TextButton.styleFrom(
-      visualDensity: _darkCommonButtonStyle.visualDensity,
+      foregroundColor: Colors.white, visualDensity: _darkCommonButtonStyle.visualDensity,
       backgroundColor: ColorHelper.darkButton,
-      primary: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(8)),
         side: BorderSide(color: Colors.transparent),

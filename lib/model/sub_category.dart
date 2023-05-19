@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SubCategory {
+  final String? id;
   final String? username;
   final String? price;
   final String? bio;
@@ -15,6 +16,7 @@ class SubCategory {
 
 
   SubCategory({
+    this.id,
     this.username,
     this.price,
     this.bio,
@@ -32,6 +34,7 @@ class SubCategory {
       ){
     final data = snapshot.data();
     return SubCategory(
+      id : data?['id'],
       username : data?['user_name'],
       bio : data?['bio'],
       photo : data?['photo'],
@@ -46,6 +49,7 @@ class SubCategory {
 
   Map<String,dynamic> toFirestore(){
     return {
+      if(id!=null) 'id':id,
       if(username!=null) 'user_name':username,
       if(photo!=null) 'photo':photo,
       if(price!=null) 'price':price,

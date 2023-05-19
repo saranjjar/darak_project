@@ -75,7 +75,7 @@ class InChatController extends GetxController {
     );
   }
 
-  //
+
   void showPicker(context){
     showModalBottomSheet(
       context:context,builder:(BuildContext context){

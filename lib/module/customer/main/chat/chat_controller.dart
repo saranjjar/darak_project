@@ -6,7 +6,6 @@ import 'package:darak_project/model/message.dart';
 import 'package:darak_project/model/user.dart';
 import 'package:darak_project/services/common/user_store.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class ChatController extends GetxController{
 
@@ -15,35 +14,35 @@ class ChatController extends GetxController{
   final db = FirebaseFirestore.instance;
   final token = UserStore.t0.token;
 
-  goChat(UserData to_userdata) async{
+  goChat(UserData toUserdata) async{
     //From Message
-    var from_messages = await db.collection('message').withConverter(
+    var fromMessages = await db.collection('message').withConverter(
       fromFirestore: Message.fromFirestore,
       toFirestore: (Message msg,options)=>msg.toFirestore()).where(
           "from_uid",isEqualTo: token
       ).where(
-          "to_uid",isEqualTo: to_userdata.id
+          "to_uid",isEqualTo: toUserdata.id
       ).get();
 
     //To Message
-    var to_messages = await db.collection('message').withConverter(
+    var toMessages = await db.collection('message').withConverter(
         fromFirestore: Message.fromFirestore,
         toFirestore: (Message msg,options)=>msg.toFirestore()).where(
-        "from_uid",isEqualTo: to_userdata.id
+        "from_uid",isEqualTo: toUserdata.id
     ).where(
         "to_uid",isEqualTo: token
     ).get();
     //There is No Messages between them yet
-    if(from_messages.docs.isEmpty && to_messages.docs.isEmpty){
+    if(fromMessages.docs.isEmpty && toMessages.docs.isEmpty){
       String profile = await UserStore.t0.getProfile();
       Users userdata = Users.fromJson(jsonDecode(profile));
-      var msgdata = Message(
+      var msgData = Message(
         from_uid: userdata.accessToken,
-        to_uid: to_userdata.id,
+        to_uid: toUserdata.id,
         from_name: userdata.displayName,
-        to_name: to_userdata.name,
+        to_name: toUserdata.name,
         from_avatar: userdata.photoUrl,
-        to_avatar: to_userdata.photoUrl,
+        to_avatar: toUserdata.photoUrl,
         last_msg: "",
         last_time: Timestamp.now(),
         msg_num: 0
@@ -51,30 +50,30 @@ class ChatController extends GetxController{
       db.collection('message').withConverter(
           fromFirestore: Message.fromFirestore,
           toFirestore: (Message msg,options)=>msg.toFirestore()
-      ).add(msgdata).then((value){
+      ).add(msgData).then((value){
         Get.toNamed(Routes.inChatScreenRoute,parameters: {
           "doc_id":value.id,
-          "to_uid":to_userdata.id??"",
-          "to_name":to_userdata.name??"",
-          "to_avatar":to_userdata.photoUrl??""
+          "to_uid":toUserdata.id??"",
+          "to_name":toUserdata.name??"",
+          "to_avatar":toUserdata.photoUrl??""
         });
       });
     }
     else{
-      if(from_messages.docs.isNotEmpty){
+      if(fromMessages.docs.isNotEmpty){
         Get.toNamed(Routes.inChatScreenRoute,parameters: {
-          "doc_id":from_messages.docs.first.id,
-          "to_uid":to_userdata.id??"",
-          "to_name":to_userdata.name??"",
-          "to_avatar":to_userdata.photoUrl??""
+          "doc_id":fromMessages.docs.first.id,
+          "to_uid":toUserdata.id??"",
+          "to_name":toUserdata.name??"",
+          "to_avatar":toUserdata.photoUrl??""
         });
       }
-      if(to_messages.docs.isNotEmpty){
+      if(toMessages.docs.isNotEmpty){
         Get.toNamed(Routes.inChatScreenRoute,parameters: {
-          "doc_id":to_messages.docs.first.id,
-          "to_uid":to_userdata.id??"",
-          "to_name":to_userdata.name??"",
-          "to_avatar":to_userdata.photoUrl??""
+          "doc_id":toMessages.docs.first.id,
+          "to_uid":toUserdata.id??"",
+          "to_name":toUserdata.name??"",
+          "to_avatar":toUserdata.photoUrl??""
         });
       }
     }

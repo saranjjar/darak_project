@@ -31,10 +31,12 @@ class CategoriesScreen extends StatelessWidget {
       elevation: 0,
       backgroundColor: Colors.white,
       leading: IconButton(
-        onPressed: (){},
+        onPressed: (){
+          Get.back();
+        },
         icon: const Icon(Icons.arrow_back_ios,color: Colors.black,),
       ),
-      title: Text(_controller.name_service.value,style: TextStyle(color: Colors.black,fontFamily: TextHelper.satoshiBold),),
+      title: Text(_controller.name_service!,style: TextStyle(color: Colors.black,fontFamily: TextHelper.satoshiBold,fontSize: 18),),
       actions: [
         IconButton(
             onPressed: (){},
@@ -58,7 +60,15 @@ class CategoriesScreen extends StatelessWidget {
     var item = _controller.subCategoryList[index].data();
    return InkWell(
      onTap: (){
-       Get.toNamed(Routes.profileCategoryRoutes);
+       _controller.bookReview(_controller.subCategoryList[index].data());
+       Get.toNamed(Routes.profileCategoryRoutes,parameters:{
+        'service_name':item.service!,
+        'username': item.username!,
+        'bio': item.bio!,
+        'price': item.price!,
+        'location': item.location!,
+        'photo': item.photo!,
+       });
      },
      child: Padding(
        padding: const EdgeInsets.symmetric(

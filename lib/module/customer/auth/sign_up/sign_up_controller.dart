@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/model/user.dart';
 import 'package:darak_project/module/customer/main/layout/layout_screen.dart';
 import 'package:darak_project/module/worker/addInfo/add_info_screen.dart';
@@ -75,6 +76,7 @@ class SignUpController extends GetxController{
 
     }catch(e){
       showSnackbar(context, Colors.red, e.toString());
+      isLoading.value = false;
       if (kDebugMode) {
         print(e.toString());
       }
@@ -152,14 +154,16 @@ class SignUpController extends GetxController{
             toFirestore: (UserData userdata,options)=>userdata.toFirestore(),).add(data);
         }
         showSnackbar(context, Colors.green, 'Login Success');
-        Get.offAll(()=>AddInfoScreen());
+        Get.offAllNamed(Routes.addInfoRoute,parameters: {'id':user?.uid ?? ""});
       }
       else{
         // User was not created successfully
         showSnackbar(context, Colors.red, "User created failed");
+        isLoading.value = false;
 
       }
     } on FirebaseAuthException catch (error) {
+      isLoading.value = false;
       String message='error occurred';
       // Handle any errors that occur during sign up
       if(error.code=='weak-password'){
@@ -171,7 +175,6 @@ class SignUpController extends GetxController{
       return error.message;
     }
     isLoading.value = false;
-    update();
   }
 
   //register facebook

@@ -1,4 +1,8 @@
 
+import 'package:darak_project/module/book_details/book_details_screen.dart';
+import 'package:darak_project/module/book_details/booking_review/booking_review_screen.dart';
+import 'package:darak_project/module/book_details/location_details/location_details_screen.dart';
+import 'package:darak_project/module/book_details/payment_method/payment_method_screen.dart';
 import 'package:darak_project/module/customer/auth/forget_password/forget_password_screen.dart';
 import 'package:darak_project/module/customer/auth/forget_password/verification/reset_password/reset_password_screen.dart';
 import 'package:darak_project/module/customer/auth/forget_password/verification/verification_screen.dart';
@@ -30,6 +34,10 @@ class Routes {
    static const String photoViewRoutes = '/photoView';
    static const String categoriesRoutes = '/category';
    static const String profileCategoryRoutes = '/categoryProfile';
+   static const String bookRoutes = '/book';
+   static const String locationRoutes = '/location';
+   static const String paymentRoutes = '/payment';
+   static const String bookingRevRoutes = '/booking';
 }
 
 List<GetPage<dynamic>> appRoutes = [
@@ -74,10 +82,21 @@ List<GetPage<dynamic>> appRoutes = [
      page: () => CategoriesScreen(),
    ),GetPage(
      name: Routes.profileCategoryRoutes,
-     page: () => const ProfileCategoryScreen(),
+     page: () =>  ProfileCategoryScreen(),
    ),GetPage(
      name: Routes.addInfoRoute,
      page: () =>  AddInfoScreen(),
+   ),GetPage(
+     name: Routes.bookRoutes,
+     page: () =>   BookDetailsScreen(),
+   ),GetPage(
+     name: Routes.locationRoutes,
+     page: () =>  const LocationDetailsScreen(),
+   ),GetPage(
+     name: Routes.paymentRoutes,
+     page: () =>   const PaymentMethodScreen(),
+   ),GetPage(
+     name: Routes.bookingRevRoutes,
+     page: () =>    BookingReviewScreen(),
    ),
-
 ];

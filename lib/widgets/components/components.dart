@@ -31,7 +31,7 @@ Widget D_MaterialButton(
       Color textColor = Colors.white,
       double paddingSpace = 16.0,
       double raduis = 12.0,
-      required double width,
+       double? width,
       Color? color = ColorHelper.primaryColor,
       Color colorb = Colors.transparent,
       double elevation = 0,

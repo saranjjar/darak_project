@@ -146,7 +146,7 @@ class ColorHelper {
   }
 
   /// Default accent swatch color
-  static MaterialColor primarySwatchColor = _createMaterialColor(blueAccent);
+  static MaterialColor primarySwatchColor = _createMaterialColor(primaryColor);
 
   /// Adwaita grey swatch color
   static MaterialColor warmGrey = _createMaterialColor(light4);

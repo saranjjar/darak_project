@@ -7,6 +7,7 @@ import 'package:darak_project/module/worker/addInfo/add_info_screen.dart';
 import 'package:darak_project/services/common/config.dart';
 import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:darak_project/services/common/user_store.dart';
+import 'package:darak_project/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
           return  GetMaterialApp(
             debugShowCheckedModeBanner: false,
             // themeMode:ThemeServices().theme!,
-            // theme:ThemeApp.light(),
+             theme:ThemeApp.light(),
             // darkTheme: ThemeApp.dark(),
             initialBinding: Binding(),
             getPages: appRoutes,

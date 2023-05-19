@@ -1,4 +1,6 @@
 
+import 'package:darak_project/module/book_details/book_details_controller.dart';
+import 'package:darak_project/module/book_details/location_details/location_details_controller.dart';
 import 'package:darak_project/module/customer/auth/forget_password/forget_password_controller.dart';
 import 'package:darak_project/module/customer/auth/forget_password/verification/reset_password/reset_password_controller.dart';
 import 'package:darak_project/module/customer/auth/forget_password/verification/verification_controller.dart';
@@ -40,6 +42,9 @@ class Binding extends Bindings {
     Get.lazyPut(() => PhotoViewController(), fenix: true);
     Get.lazyPut(() => CategoriesController(), fenix: true);
     Get.lazyPut(() => ProfileCategoryController(), fenix: true);
+    Get.lazyPut(() => BookDetailsController(), fenix: true);
+    Get.lazyPut(() => LocationDetailsController(), fenix: true);
+    Get.lazyPut(() => BookDetailsController(), fenix: true);
 
     //worker
     Get.lazyPut(() => SignUpWoController(), fenix: true);
