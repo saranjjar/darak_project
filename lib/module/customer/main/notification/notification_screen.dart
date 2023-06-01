@@ -1,95 +1,133 @@
 import 'package:darak_project/helpers/colors_helper.dart';
+import 'package:darak_project/helpers/image_helper.dart';
+import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
-class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({Key? key}) : super(key: key);
+import 'package:flutter_svg/svg.dart';
+class BookingScreen extends StatelessWidget {
+  const BookingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsetsDirectional.all(8),
-              scrollDirection:Axis.vertical,
-              shrinkWrap: true,
-              itemBuilder: (context,index)=>_buildListItem(),
-              separatorBuilder: (context,index)=>const SizedBox(height: 10,),
-              itemCount: 8
-          ),
-        )
-      ],
-    );
-  }
-  Widget _buildListItem() {
-    return Container(
-      width: double.infinity,
-      height: 120.h,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: ColorHelper.warmGrey,
-            width: 0.1,
-          )
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 80.h,
-              width: 80.w,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: const DecorationImage(
-                    image: NetworkImage(
-                      'https://m.atcdn.co.uk/vms/media/w980/4b5770f73f274430aa20ee1e0aa89997.jpg',
-                    ),
-                    fit: BoxFit.cover,
-                  )),
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'A 2020 Hummer washing machine and fan ad is under review',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontSize: 13.sp,
+    return Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SafeArea(
+          child: DefaultTabController(
+            length: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: TabBar(
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicator: _buildTabDecoration(),
+                    indicatorColor: ColorHelper.primaryColor,
+                    automaticIndicatorColorAdjustment: false,
+                    labelColor: ColorHelper.primaryColor,
+                    unselectedLabelColor: ColorHelper.blackColor,
+                    physics: const BouncingScrollPhysics(),
+
+                    tabs: [
+                      Tab(
+                        child:
+                        Text('Pending', style: _buildTextStyle()),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.access_time,size: 15,color: ColorHelper.warmGrey),
-                      SizedBox(width: 5.w,),
-                      Text(
-                        '7/8/2020',
-                        style: TextStyle(
-                            fontSize: 11.sp, color: ColorHelper.warmGrey),
+                      Tab(
+                        child: Text(
+                          'UpComing',
+                          style: _buildTextStyle(),
+                        ),
+                      ),Tab(
+                        child: Text(
+                          'Completed',
+                          style: _buildTextStyle(),
+                        ),
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: 20.h,),
+                Expanded(
+                  child: TabBarView(
+                      children: [
+                        _buildMainBody(),
+                        Text('data'),
+                        Text('data'),
+                      ]),
+                )
+              ],
             ),
+
+          ),
+        ),
+      );
+  }
+
+  BoxDecoration _buildTabDecoration() {
+    return BoxDecoration(
+        color: ColorHelper.light1,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Colors.grey.shade200
+        )
+    );
+  }
+
+  TextStyle _buildTextStyle() => TextStyle(fontSize: 15,fontFamily: TextHelper.satoshiBold);
+
+  Widget _buildMainBody() {
+    return Expanded(
+      child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          itemBuilder:(context,index)=>_buildListItem(index),
+          separatorBuilder: (context,index)=>SizedBox(height: 10.h,),
+          itemCount: 10
+      ),
+    );
+  }
+
+  Container _buildListItem(index) {
+//    var item = _controller.reqList[index].data();
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: ColorHelper.offPurpleColor)),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('item.serviceName!',style: _buildTextStyle1(font:16),maxLines: 1,overflow: TextOverflow.ellipsis,),
+            SizedBox(height: 10.h,),
+            _buildItem(icon: ImageHelper.bookIcon,title: 'item.date!'),
+            SizedBox(height: 10.h,),
+            _buildItem(icon: ImageHelper.locationIcon,title: 'Gaza'),
+            SizedBox(height: 10.h,),
+            _buildItem(icon: ImageHelper.priceIcon,title: 'item.price}\$'),
+            SizedBox(height: 10.h,),
+            _buildItem(icon: ImageHelper.profileIcon,title: 'item.price}\$'),
           ],
         ),
       ),
     );
   }
+
+  Row _buildItem({required String title, required String icon}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SvgPicture.asset(icon),
+        const SizedBox(width:5,),
+        Text(title,style: TextStyle(fontSize: 16,fontFamily: TextHelper.satoshiMedium,),maxLines: 1,overflow: TextOverflow.ellipsis,),
+      ],
+    );
+  }
+
+  TextStyle _buildTextStyle1({double? font}) => TextStyle(fontFamily: TextHelper.satoshiBold, fontSize:font?? 18);
 }

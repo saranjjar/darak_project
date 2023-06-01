@@ -20,6 +20,7 @@ class TextFormFieldCustom extends StatelessWidget {
   String? label;
   FocusNode? focusNode;
   bool? auto_focus;
+  Color?fillColor;
 
 
   TextFormFieldCustom({super.key,
@@ -38,6 +39,8 @@ class TextFormFieldCustom extends StatelessWidget {
     required TextInputType keyboardType,
     this.focusNode,
     this.auto_focus,
+    this.fillColor,
+
 
   });
 
@@ -48,13 +51,15 @@ class TextFormFieldCustom extends StatelessWidget {
       height: hieght,
       width: width,
       child: TextFormField(
+        scrollPadding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom),
         autofocus:auto_focus??false ,
         focusNode: focusNode,
         enabled: enabled,
         controller: textEditingController,
         maxLines: maxline,
         decoration: InputDecoration(
-          fillColor: ColorHelper.fillFFColor,
+          fillColor: fillColor??ColorHelper.fillFFColor,
           filled: true,
           label: Text(label??''),
           labelStyle: TextStyle(
@@ -83,7 +88,7 @@ class TextFormFieldCustom extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: ColorHelper.offWhiteColor, width: 1.0),
+            borderSide: BorderSide(color: ColorHelper.offWhiteColor, width: 0.5),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),

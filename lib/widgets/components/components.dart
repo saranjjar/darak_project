@@ -29,7 +29,6 @@ Widget D_MaterialButton(
       bool isUpperCase = true,
       required Widget child,
       Color textColor = Colors.white,
-      double paddingSpace = 16.0,
       double raduis = 12.0,
        double? width,
       Color? color = ColorHelper.primaryColor,
@@ -40,13 +39,14 @@ Widget D_MaterialButton(
     Material(
       elevation: elevation,
       clipBehavior: Clip.antiAliasWithSaveLayer,
+
       borderRadius: BorderRadius.circular(raduis),
       child: Container(
         height: height,
         width: width,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(raduis),
           border: Border.all(
             color: colorb,
             width: 0.5
@@ -56,8 +56,8 @@ Widget D_MaterialButton(
           color: color,
           onPressed: onPressed,
           height: height,
-          child: child,
           elevation: elevation,
+          child: child,
           ),
       ),
     );

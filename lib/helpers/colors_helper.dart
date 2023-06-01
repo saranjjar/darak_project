@@ -9,6 +9,7 @@ class ColorHelper {
   static const Color fillFFColor = Color(0xFFF9FAFB);
   static const Color hintColor = Color(0xFFB6BBC4);
 
+  static const Color greyColor = Color(0xFF6B7280);
   static const Color divColor = Color(0xFFF4F4F4);
   static const Color offWhiteColor = Color(0xFFB6BBC4);
 

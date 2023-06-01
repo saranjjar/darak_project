@@ -1,18 +1,18 @@
 import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
-import 'package:darak_project/module/worker/forget_password/verification/reset_password/reset_password_controller.dart';
+import 'package:darak_project/module/customer/customer_auth/forget_customer_password/customer_verification/reset_customer_password/reset_password_customer_controller.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class ResetPasswordWoScreen extends StatelessWidget {
-  ResetPasswordWoScreen({Key? key}) : super(key: key);
+class ResetPasswordScreen extends StatelessWidget {
+  ResetPasswordScreen({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
-  final controller = Get.put(ResetWoController());
+  final controller = Get.put(ResetController());
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class ResetPasswordWoScreen extends StatelessWidget {
                   Obx(() => TextFormFieldCustom(
                     textEditingController: controller.passController,
                     keyboardType: TextInputType.text,
-                    hintText: 'Enter new password'.tr,
+                    hintText: 'Enter new password',
                     maxline: 1,
                     obscureText: !controller.isvisiable.value,
                     suffixIcon: InkWell(
@@ -65,7 +65,7 @@ class ResetPasswordWoScreen extends StatelessWidget {
                     ),
                     validator: (value){
                       if(value!.isEmpty) {
-                        return 'must enter value'.tr;
+                        return 'must enter value';
                       }
                     },
                   ),),

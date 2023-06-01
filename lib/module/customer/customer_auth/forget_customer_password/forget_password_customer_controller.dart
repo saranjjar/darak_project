@@ -1,5 +1,5 @@
 import 'package:darak_project/Application/app_router/app_router.dart';
-import 'package:darak_project/module/customer/auth/forget_password/verification/verification_screen.dart';
+import 'package:darak_project/module/customer/customer_auth/forget_customer_password/customer_verification/verification_customer_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

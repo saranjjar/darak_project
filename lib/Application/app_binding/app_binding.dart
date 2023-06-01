@@ -1,11 +1,11 @@
 
 import 'package:darak_project/module/book_details/book_details_controller.dart';
 import 'package:darak_project/module/book_details/location_details/location_details_controller.dart';
-import 'package:darak_project/module/customer/auth/forget_password/forget_password_controller.dart';
-import 'package:darak_project/module/customer/auth/forget_password/verification/reset_password/reset_password_controller.dart';
-import 'package:darak_project/module/customer/auth/forget_password/verification/verification_controller.dart';
-import 'package:darak_project/module/customer/auth/sign_in/sign_in_controller.dart';
-import 'package:darak_project/module/customer/auth/sign_up/sign_up_controller.dart';
+import 'package:darak_project/module/customer/customer_auth/customer_sign_in/sign_in_customer_controller.dart';
+import 'package:darak_project/module/customer/customer_auth/customer_sign_up/sign_up_customer_controller.dart';
+import 'package:darak_project/module/customer/customer_auth/forget_customer_password/customer_verification/reset_customer_password/reset_password_customer_controller.dart';
+import 'package:darak_project/module/customer/customer_auth/forget_customer_password/customer_verification/verification_customer_controller.dart';
+import 'package:darak_project/module/customer/customer_auth/forget_customer_password/forget_password_customer_controller.dart';
 import 'package:darak_project/module/customer/main/chat/chat_controller.dart';
 import 'package:darak_project/module/customer/main/chat/chat_history/chat_history_controller.dart';
 import 'package:darak_project/module/customer/main/chat/in_chat/inchat_controller.dart';
@@ -13,13 +13,14 @@ import 'package:darak_project/module/customer/main/home/categories/categories_co
 import 'package:darak_project/module/customer/main/home/categories/profile_category/profile_category_controller.dart';
 import 'package:darak_project/module/customer/main/home/home_controller.dart';
 import 'package:darak_project/module/customer/main/settings/settings_controller.dart';
+import 'package:darak_project/module/customer/main/worker_home/worker_home_controller.dart';
 import 'package:darak_project/module/splash/splash_controller.dart';
 import 'package:darak_project/module/worker/addInfo/add_info_controller.dart';
-import 'package:darak_project/module/worker/forget_password/forget_password_controller.dart';
-import 'package:darak_project/module/worker/forget_password/verification/reset_password/reset_password_controller.dart';
-import 'package:darak_project/module/worker/forget_password/verification/verification_controller.dart';
-import 'package:darak_project/module/worker/sign_in/sign_in_controller.dart';
-import 'package:darak_project/module/worker/sign_up/sign_up_controller.dart';
+import 'package:darak_project/module/worker/worker_forget_password/forget_password_worker_controller.dart';
+import 'package:darak_project/module/worker/worker_forget_password/worker_verification/verification_worker_controller.dart';
+import 'package:darak_project/module/worker/worker_forget_password/worker_verification/worker_reset_password/reset_password_worker_controller.dart';
+import 'package:darak_project/module/worker/worker_sign_in/sign_in_worker_controller.dart';
+import 'package:darak_project/module/worker/worker_sign_up/sign_up_worker_controller.dart';
 import 'package:darak_project/services/common/config.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
@@ -27,13 +28,14 @@ import 'package:photo_view/photo_view.dart';
 class Binding extends Bindings {
   @override
   void dependencies() {
-    Get.put(() => SplashController(),);
+    Get.lazyPut(() => SplashController(),fenix: true);
     Get.lazyPut(() => SignUpController(), fenix: true);
     Get.lazyPut(() => SignInController(), fenix: true);
     Get.lazyPut(() => ForgetPasswordController(), fenix: true);
     Get.lazyPut(() => VerificationController(), fenix: true);
     Get.lazyPut(() => ResetController(), fenix: true);
     Get.lazyPut(() => HomeController(), fenix: true);
+    Get.lazyPut(() => WorkerHomeController(), fenix: true);
     Get.lazyPut(() => ConfigStore(), fenix: true);
     Get.lazyPut(() => ChatController(), fenix: true);
     Get.lazyPut(() => SettingsController(), fenix: true);

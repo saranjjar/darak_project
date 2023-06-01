@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:darak_project/Application/app_router/app_router.dart';
+import 'package:darak_project/const.dart';
 import 'package:darak_project/model/user.dart';
 import 'package:darak_project/module/customer/main/layout/layout_screen.dart';
 import 'package:darak_project/module/worker/addInfo/add_info_screen.dart';
+import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:darak_project/services/common/user_store.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +26,11 @@ class SignUpController extends GetxController{
   User? users = FirebaseAuth.instance.currentUser;
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
+  RxBool isvisiable = false.obs;
+
+  changeVisiability(){
+    isvisiable.value =! isvisiable.value;
+  }
   Future<void> signInGoogle(context) async {
 
     try {
@@ -40,7 +47,7 @@ class SignUpController extends GetxController{
         );
         await FirebaseAuth.instance.signInWithCredential(credential);
 
-        String displayName = user.displayName ?? user.email;
+        String displayName = user.displayName!;
         String email = user.email;
         String id = user.id;
         String photoUrl = user.photoUrl ?? "";
@@ -57,6 +64,7 @@ class SignUpController extends GetxController{
           fromFirestore: UserData.fromFirestore,
           toFirestore: (UserData userdata,options)=>userdata.toFirestore(),).where('id', isEqualTo:id ).get();
         if(userbase.docs.isEmpty){
+
           final data = UserData(
             id: id,
             name: displayName,
@@ -70,8 +78,10 @@ class SignUpController extends GetxController{
             fromFirestore: UserData.fromFirestore,
             toFirestore: (UserData userdata,options)=>userdata.toFirestore(),).add(data);
         }
+
         showSnackbar(context, Colors.green, 'Login Success');
-        Get.to(()=>LayoutScreen());
+        await StorageService.to.setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'CUSTOMER');
+        Get.offAll(()=>LayoutScreen());
       }
 
     }catch(e){
@@ -103,6 +113,10 @@ class SignUpController extends GetxController{
     try {
       await _googleSignIn.signOut();
       await _auth.signOut();
+      UserStore.t0.onLogout();
+      await StorageService.to.remove(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY);
+      Get.offAllNamed(Routes.signInRoute);
+
       Get.snackbar("Account LogOut", "Welcome");
     } catch (ex) {
       Get.snackbar("Something Wrong", "$ex");
@@ -123,7 +137,7 @@ class SignUpController extends GetxController{
       if(userCredential.user!=null){
         final user = userCredential.user;
 
-        String? displayName = user?.displayName ?? user?.email!;
+        String? displayName = username.text;
         String email = user?.email ?? "";
         String id = user?.uid ?? "";
         String photoUrl = user?.photoURL ?? "";
@@ -154,7 +168,8 @@ class SignUpController extends GetxController{
             toFirestore: (UserData userdata,options)=>userdata.toFirestore(),).add(data);
         }
         showSnackbar(context, Colors.green, 'Login Success');
-        Get.offAllNamed(Routes.addInfoRoute,parameters: {'id':user?.uid ?? ""});
+        await StorageService.to.setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'CUSTOMER');
+        Get.offAllNamed(Routes.layoutRoute);
       }
       else{
         // User was not created successfully

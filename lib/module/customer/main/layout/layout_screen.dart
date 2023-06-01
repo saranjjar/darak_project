@@ -1,5 +1,6 @@
 import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:darak_project/widgets/components/components.dart';
+import 'package:darak_project/widgets/customAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'layout_controller.dart';
@@ -12,7 +13,7 @@ class LayoutScreen extends StatelessWidget {
     return GetBuilder<LayoutController>(builder: (controller)=>SafeArea(
       child: Scaffold(
             backgroundColor: Colors.white,
-            //appBar: CustomAppBar(controller.titles[controller.currantScreenIndex]),
+            appBar: buildAppBarPrimary(title: controller.titles[controller.currantScreenIndex]),
             body: controller.screens[controller.currantScreenIndex],
             bottomNavigationBar:
                 BottomNavigationBar(

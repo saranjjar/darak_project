@@ -1,7 +1,6 @@
 import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
-import 'package:darak_project/module/customer/auth/sign_in/sign_in_screen.dart';
-import 'package:darak_project/module/customer/auth/sign_up/sign_up_controller.dart';
+import 'package:darak_project/module/customer/customer_auth/customer_sign_up/sign_up_customer_controller.dart';
 import 'package:darak_project/module/customer/main/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -116,7 +115,6 @@ class SettingsScreen extends StatelessWidget {
            Get.toNamed(route);
          }else{
            controllerSignUp.logOut();
-           Get.offAll(SignInScreen());
 
          }
 

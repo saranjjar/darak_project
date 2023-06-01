@@ -1,9 +1,11 @@
 import 'package:darak_project/Application/app_router/app_router.dart';
+import 'package:darak_project/const.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:darak_project/module/customer/main/layout/layout_screen.dart';
 import 'package:darak_project/module/worker/addInfo/add_info_controller.dart';
+import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/textformfield.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +27,11 @@ class AddInfoScreen extends StatelessWidget {
     double width =MediaQuery.of(context).size.width-40;
 
     return GetBuilder<AddInfoController>(builder: ((controller)=>Scaffold(
+        resizeToAvoidBottomInset:true,
         backgroundColor: ColorHelper.primaryColor,
         body: SafeArea(
           child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
             child: Form(
                 key: _formKey,
                 child:Builder(
@@ -205,7 +208,7 @@ class AddInfoScreen extends StatelessWidget {
                                   :
                               D_MaterialButton(
                               color: Colors.white,
-                              onPressed: (){
+                              onPressed: () {
                                 controller.addInfoWorker(subcategoryID: controller.serviceName);
                                  Get.offNamed(Routes.layoutRoute);
                               },

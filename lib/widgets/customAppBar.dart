@@ -18,3 +18,12 @@ AppBar buildAppBar({required String title}) {
 
   );
 }
+AppBar buildAppBarPrimary({required String title}) {
+  return AppBar(
+    titleSpacing: 20,
+    elevation: 0,
+    backgroundColor: Colors.white,
+    title: Text(title,style: TextStyle(color: Colors.black,fontFamily: TextHelper.satoshiBold,fontSize: 18),),
+
+  );
+}

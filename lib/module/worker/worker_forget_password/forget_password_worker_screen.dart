@@ -1,17 +1,17 @@
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
-import 'package:darak_project/module/customer//auth/forget_password/forget_password_controller.dart';
+import 'package:darak_project/module/worker/worker_forget_password/forget_password_worker_controller.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class ForgetPasswordScreen extends StatelessWidget {
-  ForgetPasswordScreen({Key? key}) : super(key: key);
+class ForgetPasswordWoScreen extends StatelessWidget {
+  ForgetPasswordWoScreen({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
-  final controller = Get.put(ForgetPasswordController());
+  final controller = Get.put(ForgetPasswordWoController());
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,12 @@ class ForgetPasswordScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 30.h,),
-                  D_MaterialButton(
+                  Obx(()=>
+                      controller.isLoading.value
+                          ?
+                       const Center(child: CircularProgressIndicator())
+                          :
+                      D_MaterialButton(
                       onPressed: (){
                         if(_formKey.currentState!.validate()) {
                           return controller.singUpWithNumber();
@@ -73,7 +78,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                       }, child:  Text(
                     'Continue',style: buildTextStyleBtn(),
 
-                  ), width: width),
+                  ), width: width))
                 ],
               ),
             ),

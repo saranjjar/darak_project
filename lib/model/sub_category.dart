@@ -9,6 +9,7 @@ class SubCategory {
   final String? bio;
   final String? photo;
   final String? service;
+  final String? subService;
   final String? idNumber;
   final String? location;
   final String? email;
@@ -26,6 +27,7 @@ class SubCategory {
     this.location,
     this.mobile,
     this.email,
+    this.subService
   });
 
   factory SubCategory.fromFirestore(
@@ -44,6 +46,7 @@ class SubCategory {
       idNumber : data?['idNumber'],
       mobile : data?['mobile'],
       email : data?['email'],
+      subService : data?['subService'],
     );
   }
 
@@ -59,6 +62,7 @@ class SubCategory {
       if(idNumber!=null) 'idNumber':idNumber,
       if(mobile!=null) 'mobile':mobile,
       if(email!=null) 'email':email,
+      if(subService!=null) 'subService':subService,
     };
   }
 }

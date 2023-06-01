@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
+import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:darak_project/model/message.dart';
 import 'package:darak_project/module/customer/main/chat/chat_history/chat_history_controller.dart';
 import 'package:darak_project/utils/utils.dart';
@@ -16,9 +17,8 @@ class ChatHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Obx(() => SmartRefresher(
+    return SafeArea(
+      child: Obx(() => SmartRefresher(
             enablePullDown: true,
             enablePullUp: true,
             controller: _controller.refreshController,
@@ -75,41 +75,52 @@ class ChatHistoryScreen extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.only(top: 0.w,left: 0.w,right: 10.w),
-              child: SizedBox(
-                width: 50.w,
-                height: 50.h,
+              child: Container(
+                width: 55.w,
+                height: 55.h,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle
+                ),
                 child: CachedNetworkImage(
                     imageUrl: item.data().from_uid == _controller.token
                         ?
                     item.data().to_avatar!
                         :
                     item.data().from_avatar!,
-                  imageBuilder: (context,imageProvider)=>Container(
-                    width: 50.w,
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover
-                      )
-                    ),
-                  ),
+                  fit: BoxFit.cover,
+                  // imageBuilder: (context,imageProvider)=>Container(
+                  //   width: 50.w,
+                  //   height: 50.h,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(50),
+                  //     image: DecorationImage(
+                  //       image: imageProvider,
+                  //       fit: BoxFit.cover
+                  //     )
+                  //   ),
+                  // ),
+
+                    placeholder: (context, url) => const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>  const Icon(Icons.supervised_user_circle),
+
+
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 10.w,left: 15.w,right: 15.w),
+              padding: EdgeInsets.only(top: 10.w,right: 10),
               decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    width: 1,
-                    color: ColorHelper.offWhiteColor,
-                  ),
-                ),
+                // border: Border(
+                //   bottom: BorderSide(
+                //     width: 1,
+                //     color: ColorHelper.offWhiteColor,
+                //   ),
+                // ),
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: 180.w,
@@ -126,15 +137,18 @@ class ChatHistoryScreen extends StatelessWidget {
                           item.data().from_name!,
                           maxLines: 1,
                           overflow: TextOverflow.clip,
+                          style: TextStyle(fontFamily: TextHelper.satoshiBold,fontSize: 16),
                         ),
                         Text(
                           item.data().last_msg??"",
                           maxLines: 1,
                           overflow: TextOverflow.clip,
+                          style: TextStyle(fontFamily: TextHelper.satoshiRegular,fontSize: 16,color: ColorHelper.greyColor),
                         ),
                       ],
                     ),
                   ),
+
                   SizedBox(
                     height: 54.h,
                     width: 60.w,
@@ -144,6 +158,7 @@ class ChatHistoryScreen extends StatelessWidget {
                       children: [
                         Text(
                           duTimeFormat((item.data().last_time!).toDate()),
+                          style: TextStyle(fontFamily: TextHelper.satoshiLight,fontSize: 12),
                           maxLines: 1,
                           overflow: TextOverflow.clip,
                         ),

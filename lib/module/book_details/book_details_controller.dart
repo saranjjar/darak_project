@@ -33,6 +33,7 @@ class BookDetailsController extends GetxController{
     }
   }
   RxInt workingHours = 1.obs;
+
   void addHour(){
     if(workingHours.value==12)return;
     workingHours.value++;
@@ -47,13 +48,14 @@ class BookDetailsController extends GetxController{
     StorageService.to.setString(Constants.STRORAGE_WORKING_HOURS, workingHours.toString());
     print(StorageService.to.getString(Constants.STRORAGE_WORKING_HOURS));
   }
+
   RxString? price =''.obs;
 
   RxDouble finalPrice=0.0.obs;
   double calculatePrice(){
     finalPrice.value = double.parse(price!.value) * workingHours.value;
     StorageService.to.setString(Constants.STRORAGE_PRICE, finalPrice.toString());
-    print('${StorageService.to.getString(Constants.STRORAGE_PRICE)}*******************************');
+
     return finalPrice.value;
   }
   @override

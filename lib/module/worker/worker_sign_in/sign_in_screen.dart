@@ -2,9 +2,10 @@ import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
-import 'package:darak_project/module/worker/sign_in/sign_in_controller.dart';
-import 'package:darak_project/module/worker/sign_up/sign_up_controller.dart';
-import 'package:darak_project/module/worker/sign_up/sign_up_screen.dart';
+import 'package:darak_project/module/worker/worker_sign_in/sign_in_worker_controller.dart';
+import 'package:darak_project/module/worker/worker_sign_up/sign_up_worker_controller.dart';
+import 'package:darak_project/module/worker/worker_sign_up/sign_up_worker_screen.dart';
+import 'package:darak_project/utils/utils.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/textformfield.dart';
 import 'package:flutter/gestures.dart';
@@ -22,10 +23,10 @@ class SignInWoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GetBuilder<SignInWoController>(builder: (cont)=>Scaffold(
       backgroundColor: ColorHelper.primaryColor,
       body: _buildMainBody(context),
-    );
+    ));
   }
 
   SafeArea _buildMainBody(BuildContext context) {
@@ -78,6 +79,7 @@ class SignInWoScreen extends StatelessWidget {
                         suffixIcon: SvgPicture.asset(ImageHelper.eyeIcon),
                         textEditingController: controller.password,
                         keyboardType: TextInputType.text,
+                        focusNode: controller.focusNode,
                         validator: (val) {
                           if (val!.length < 6) {
                             return "Password must be at least 6 characters";
@@ -99,7 +101,7 @@ class SignInWoScreen extends StatelessWidget {
                           const Spacer(),
                           D_TextButton(
                               onPressed: () {
-                                Get.toNamed(Routes.forgetRoute);
+                                Get.toNamed(Routes.forgetWoRoute);
                               },
                               text: 'Forget password ?',
                               fontSize: 14),

@@ -21,9 +21,9 @@ class UserStore extends GetxController{
   bool get hasToken => token.isNotEmpty;
 
   @override
-  void onInit() {
+  void onReady() {
     // TODO: implement onInit
-    super.onInit();
+    super.onReady();
     token = StorageService.to.getString(Constants.STRORAGE_USER_TOKEN_KEY);
     var profileOffline = StorageService.to.getString(Constants.STRORAGE_USER_PROFILE_KEY);
     if(profileOffline.isNotEmpty){
@@ -45,6 +45,9 @@ class UserStore extends GetxController{
     _isLogin.value = true;
     StorageService.to.setString(Constants.STRORAGE_USER_PROFILE_KEY, jsonEncode(profile));
     setToken(profile.accessToken!);
+  }
+   isLog() async {
+    _isLogin.value = false;
   }
 
   Future<void> onLogout() async {

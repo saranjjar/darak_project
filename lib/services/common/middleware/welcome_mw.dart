@@ -14,11 +14,13 @@ class RouteWelcomeMW extends GetMiddleware {
   RouteSettings? redirect(String? route) {
     print(ConfigStore.to.isFirstOpen);
     if (ConfigStore.to.isFirstOpen == false) {
-      return null;
-    } else if (UserStore.t0.isLogin == true) {
-      return const RouteSettings(name: Routes.layoutRoute);
-    } else {
-      return const RouteSettings(name: Routes.signInRoute);
+      return const RouteSettings(name: Routes.splashRoute);
+    }
+    // else if (UserStore.t0.isLogin == true) {
+    //   return const RouteSettings(name: Routes.layoutRoute);
+    // }
+      else {
+      return const RouteSettings(name: Routes.onBoardRoute);
     }
   }
 }

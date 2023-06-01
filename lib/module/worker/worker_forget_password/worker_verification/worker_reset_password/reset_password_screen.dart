@@ -1,18 +1,18 @@
 import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
-import 'package:darak_project/module/customer/auth/forget_password/verification/reset_password/reset_password_controller.dart';
+import 'package:darak_project/module/worker/worker_forget_password/worker_verification/worker_reset_password/reset_password_worker_controller.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
-  ResetPasswordScreen({Key? key}) : super(key: key);
+class ResetPasswordWoScreen extends StatelessWidget {
+  ResetPasswordWoScreen({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
-  final controller = Get.put(ResetController());
+  final controller = Get.put(ResetWoController());
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:darak_project/Application/app_router/app_router.dart';
+import 'package:darak_project/const.dart';
 import 'package:darak_project/model/user.dart';
+import 'package:darak_project/module/customer/customer_auth/customer_sign_up/sign_up_customer_controller.dart';
 import 'package:darak_project/module/customer/main/layout/layout_screen.dart';
 import 'package:darak_project/module/worker/addInfo/add_info_screen.dart';
+import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:darak_project/services/common/user_store.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +23,11 @@ GoogleSignIn _googleSignIn = GoogleSignIn(
 
 class SignUpWoController extends GetxController{
 
+  RxBool isvisiable = false.obs;
+
+  changeVisiability(){
+    isvisiable.value =! isvisiable.value;
+  }
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Rx<User?> user = Rx<User?>(null);
   User? users = FirebaseAuth.instance.currentUser;
@@ -52,6 +61,7 @@ class SignUpWoController extends GetxController{
         userProfile.displayName = displayName;
         userProfile.photoUrl = photoUrl;
         UserStore.t0.saveProfile(userProfile);
+        saveProfile(username: displayName, photo: photoUrl);
 
         var userbase = await db.collection('users').withConverter(
           fromFirestore: UserData.fromFirestore,
@@ -71,7 +81,8 @@ class SignUpWoController extends GetxController{
             toFirestore: (UserData userdata,options)=>userdata.toFirestore(),).add(data);
         }
         showSnackbar(context, Colors.green, 'Login Success');
-        Get.offAll(()=>AddInfoScreen());
+        await StorageService.to.setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'Worker');
+        Get.offAll(()=>LayoutScreen());
       }
 
     }catch(e){
@@ -122,7 +133,7 @@ class SignUpWoController extends GetxController{
       if(userCredential.user!=null){
         final user = userCredential.user;
 
-        String? displayName = user?.displayName ?? user?.email!;
+        String? displayName = username.text;
         String email = user?.email ?? "";
         String id = user?.uid ?? "";
         String photoUrl = user?.photoURL ?? "";
@@ -152,12 +163,13 @@ class SignUpWoController extends GetxController{
             fromFirestore: UserData.fromFirestore,
             toFirestore: (UserData userdata,options)=>userdata.toFirestore(),).add(data);
         }
-
+        saveProfile(username: displayName, photo: photoUrl);
         showSnackbar(context, Colors.green, 'Login Success');
-        Get.offAll(()=>AddInfoScreen());
+        await StorageService.to.setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'Worker');
+        Get.offAllNamed(Routes.layoutRoute);
       }
       else{
-        // User was not created successfully
+        isLoading.value = false;
         showSnackbar(context, Colors.red, "User created failed");
 
       }
@@ -204,5 +216,14 @@ class SignUpWoController extends GetxController{
     phone.dispose();
     password.dispose();
     super.dispose();
+  }
+
+
+  Future<void> saveProfile ({
+    required String username,
+    required String photo,
+  }) async{
+    await StorageService.to.setString(Constants.STRORAGE_USER_WORKER, username);
+    await StorageService.to.setString(Constants.STRORAGE_PHOTO_URL, photo);
   }
 }

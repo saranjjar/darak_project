@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:darak_project/const.dart';
 import 'package:darak_project/model/sub_category.dart';
+import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,12 +34,16 @@ class AddInfoController extends GetxController{
       emailController,
       mobileController,
       IDController;
-
+  String? accessToken;
   @override
   void onInit() {
     var data = Get.parameters;
-    id = data['id']??"";
-    usernameController = TextEditingController();
+    id = StorageService.to.getString(Constants.STRORAGE_USER_PROFILE_KEY);
+    Map<String, dynamic> jsonMap = json.decode(id!);
+    accessToken = jsonMap['access_token'];
+    print(accessToken);
+
+    usernameController = TextEditingController(text: StorageService.to.getString(Constants.STRORAGE_USER_WORKER));
     priceController = TextEditingController();
     bioController = TextEditingController();
     locationController = TextEditingController();
@@ -114,7 +121,7 @@ class AddInfoController extends GetxController{
   addInfoWorker({required String subcategoryID}) async {
     isLoadingRequest.value = true;
     final information = SubCategory(
-      id: id,
+      id: accessToken,
       username: usernameController.text,
       price: priceController.text,
       location: locationController.text,
@@ -134,6 +141,7 @@ class AddInfoController extends GetxController{
       Get.focusScope?.unfocus();
     });
     reset();
+      await StorageService.to.setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'Worker');
     isLoadingRequest.value = false;
   }
 }

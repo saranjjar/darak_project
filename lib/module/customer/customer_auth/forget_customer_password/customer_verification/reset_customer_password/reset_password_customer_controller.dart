@@ -19,9 +19,7 @@ class ResetController extends GetxController{
   changeVisiability(){
 
     isvisiable.value =! isvisiable.value;
-
   }
-
 
   void reset(){
     passController.clear();

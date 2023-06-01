@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../forget_password_controller.dart';
+import '../forget_password_customer_controller.dart';
 
 class PinCodeVerificationScreen extends StatelessWidget {
   final controller = Get.put(ForgetPasswordController());

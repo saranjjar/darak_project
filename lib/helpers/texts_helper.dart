@@ -21,5 +21,9 @@ class TextHelper {
   static String view  = 'View All';
   static String services  = 'Services';
   static String specialOff  = 'Special Offers';
+  static String ptxt1  = 'Welcome to Darak! Your go-to app for all your home service needs.';
+  static String ptxt2  = 'Discover, choose, book. Seamless service at your fingertips.';
+  static String ptxt3  = 'Join our community now and experience the convenience and quality of Darak.';
+
   static String parRat  = 'Lynn was an absolute pleasure to work with. She was friendly, punctual, and went above and beyond to ensure that the job was done perfectly.';
 }

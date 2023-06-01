@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:darak_project/model/category.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController{
@@ -9,6 +10,10 @@ class HomeController extends GetxController{
     super.onInit();
     getCategory();
   }
+
+  final PageController pageController = PageController();
+  final RxInt currentPage = 0.obs;
+
   bool isLoading = false;
 
   List<QueryDocumentSnapshot<Category>> categoryList = <QueryDocumentSnapshot<Category>> [];

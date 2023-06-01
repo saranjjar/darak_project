@@ -1,5 +1,6 @@
 import 'package:darak_project/Application/app_router/app_router.dart';
-import 'package:darak_project/module/worker/forget_password/verification/verification_screen.dart';
+import 'package:darak_project/module/worker/worker_forget_password/worker_verification/verification_worker_screen.dart';
+import 'package:darak_project/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,12 @@ class ForgetPasswordWoController extends GetxController{
     await auth.signOut();
     getUserData();
   }
+  RxBool isLoading = false.obs;
 
   void singUpWithNumber() async {
     try {
+      dismissKeyboard();
+      isLoading.value = true;
       await auth.verifyPhoneNumber(
         phoneNumber: '+970${number.text}',
         verificationCompleted: (PhoneAuthCredential credential) {
@@ -55,15 +59,19 @@ class ForgetPasswordWoController extends GetxController{
         codeAutoRetrievalTimeout: (String verificationId) {},
       );
     } catch (ex) {
+      isLoading.value = false;
       Get.snackbar("$ex", "");
       if (kDebugMode) {
         print(ex);
       }
     }
+    dismissKeyboard();
+    isLoading.value = true;
   }
 
   void verifyMobileNumber(String verificationCode) async {
     try {
+
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verifyId,
         smsCode: verificationCode,
@@ -71,7 +79,7 @@ class ForgetPasswordWoController extends GetxController{
       );
       await auth.signInWithCredential(credential);
       Get.snackbar("OTP Verified", "Welcome to Flutter app");
-      Get.offAllNamed(Routes.resetRoute);
+      Get.offAllNamed(Routes.resetWoRoute);
     } catch (ex) {
       if (kDebugMode) {
         print(ex);

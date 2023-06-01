@@ -10,7 +10,7 @@ class ThemeApp {
 
   static final _lightColorScheme = ColorScheme.fromSwatch(
     // NOTE(robert-ancell): Light shades from 'Tint' on website, dark shades
-    // calculated.
+    // calculated.8
     primarySwatch: ColorHelper.primarySwatchColor,
     primaryColorDark: ColorHelper.darkBackgroundColor,
     accentColor: ColorHelper.blueAccent,
@@ -111,7 +111,7 @@ class ThemeApp {
     radioTheme: _radioStyleLight,
     appBarTheme: _appBarLightTheme,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: ColorHelper.blueAccent,
+      backgroundColor: ColorHelper.primaryColor,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedItemColor: _lightColorScheme.primary,

@@ -2,7 +2,7 @@
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
-import 'package:darak_project/module/worker/forget_password/forget_password_controller.dart';
+import 'package:darak_project/module/worker/worker_forget_password/forget_password_worker_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -84,7 +84,6 @@ class PinCodeVerificationWoScreen extends StatelessWidget {
                   },
                   onSubmit: (String verificationCode){
                     controller.verifyMobileNumber(verificationCode);
-                    //Get.offNamed(Routes.resetRoute);
                   }, // end onSubmit
                 ),
                  SizedBox(

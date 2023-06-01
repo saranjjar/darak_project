@@ -3,6 +3,7 @@ import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
+import 'package:darak_project/module/customer/main/chat/chat_controller.dart';
 import 'package:darak_project/module/customer/main/home/categories/profile_category/profile_category_controller.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/customAppBar.dart';
@@ -13,6 +14,7 @@ import 'package:get/get.dart';
 class ProfileCategoryScreen extends StatelessWidget {
    ProfileCategoryScreen({Key? key}) : super(key: key);
   final _controller =  Get.put(ProfileCategoryController());
+  final controllerChat =  Get.put(ChatController());
   @override
   Widget build(BuildContext context) {
     return  GetBuilder<ProfileCategoryController>(builder: (controller)=>Scaffold(
@@ -45,19 +47,25 @@ class ProfileCategoryScreen extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: Container(
-                    height: 30.h,
-                    width: 100.w,
-                    decoration:  BoxDecoration(
-                      color: ColorHelper.light1,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child:Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: (
-                          Row(children:[SvgPicture.asset(ImageHelper.msgIcon),const Text('Chat'),])
+                child: InkWell(
+                  onTap: (){
+                    controllerChat.goChat(_controller.userData
+                    );
+                  },
+                  child: Container(
+                      height: 30.h,
+                      width: 100.w,
+                      decoration:  BoxDecoration(
+                        color: ColorHelper.light1,
+                        borderRadius: BorderRadius.circular(50),
                       ),
-                    )
+                      child:Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: (
+                            Row(children:[SvgPicture.asset(ImageHelper.msgIcon),const Text('Chat'),])
+                        ),
+                      )
+                  ),
                 ),
               ),
 

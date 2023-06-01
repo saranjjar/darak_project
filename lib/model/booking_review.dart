@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BookingReview {
   final String? uid;
+  final String? toUid;
+  final String? nameCustomer;
   final String? serviceName;
   final String? category;
   final String? worker;
@@ -12,6 +14,8 @@ class BookingReview {
 
   BookingReview({
     this.uid,
+    this.toUid,
+    this.nameCustomer,
     this.serviceName,
     this.category,
     this.worker,
@@ -28,6 +32,8 @@ class BookingReview {
     final data = snapshot.data();
     return BookingReview(
       uid: data?['uid'],
+      toUid: data?['toUid'],
+      nameCustomer: data?['nameCustomer'],
       serviceName: data?['serviceName'],
       category: data?['category'],
       worker: data?['worker'],
@@ -41,6 +47,8 @@ class BookingReview {
   Map<String,dynamic> toFirestore(){
     return{
       if(uid !=null) "uid" : uid,
+      if(toUid !=null) "toUid" : toUid,
+      if(nameCustomer !=null) "nameCustomer" : nameCustomer,
       if(serviceName !=null) "serviceName" : serviceName,
       if(category !=null) "category" : category,
       if(worker !=null) "worker" : worker,

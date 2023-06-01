@@ -1,8 +1,11 @@
 import 'package:darak_project/Application/app_router/app_router.dart';
+import 'package:darak_project/const.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
+import 'package:darak_project/module/customer/main/chat/chat_controller.dart';
 import 'package:darak_project/module/customer/main/home/categories/categories_controller.dart';
+import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +15,7 @@ class CategoriesScreen extends StatelessWidget {
    CategoriesScreen({Key? key}) : super(key: key);
 
    final _controller = Get.put(CategoriesController());
+   final chatController = Get.put(ChatController());
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -58,12 +62,14 @@ class CategoriesScreen extends StatelessWidget {
 
   Widget _buildListItem(int index) {
     var item = _controller.subCategoryList[index].data();
-   return InkWell(
-     onTap: (){
-       _controller.bookReview(_controller.subCategoryList[index].data());
+    var photo = item.photo;
+    var id = item.id;
+    return InkWell(
+     onTap: ()async {
+       await StorageService.to.setString(Constants.STRORAGE_ID_CHAT,id!);
+       await StorageService.to.setString(Constants.STRORAGE_PHOTO_CHAT,photo!);
+       await StorageService.to.setString(Constants.STRORAGE_WORKER_NAME,item.username!);
        Get.toNamed(Routes.profileCategoryRoutes,parameters:{
-        'service_name':item.service!,
-        'username': item.username!,
         'bio': item.bio!,
         'price': item.price!,
         'location': item.location!,
@@ -163,5 +169,12 @@ class CategoriesScreen extends StatelessWidget {
            fontSize: 12,
            fontFamily: TextHelper.satoshiLight,
          );
+  }
+
+  Future<void> getWorkerData(item) async{
+  await StorageService.to.setString(Constants.STRORAGE_TO_UID, item.id??"");
+  await StorageService.to.setString(Constants.STRORAGE_WORKER_NAME, item.username??"");
+  await StorageService.to.setString(Constants.STRORAGE_SERVICE_NAME, item.service??"");
+
   }
 }

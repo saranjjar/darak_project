@@ -1,8 +1,8 @@
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
-import 'package:darak_project/module/worker/sign_in/sign_in_screen.dart';
-import 'package:darak_project/module/worker/sign_up/sign_up_controller.dart';
+import 'package:darak_project/module/worker/worker_sign_in/sign_in_screen.dart';
+import 'package:darak_project/module/worker/worker_sign_up/sign_up_worker_controller.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/textformfield.dart';
 import 'package:flutter/gestures.dart';
