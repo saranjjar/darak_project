@@ -1,6 +1,7 @@
 
 import 'package:darak_project/const.dart';
 import 'package:darak_project/services/common/shared_pref.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -39,7 +40,9 @@ class BookDetailsController extends GetxController{
     workingHours.value++;
     calculatePrice();
     StorageService.to.setString(Constants.STRORAGE_WORKING_HOURS, workingHours.toString());
-    print(StorageService.to.getString(Constants.STRORAGE_WORKING_HOURS));
+    if (kDebugMode) {
+      print(StorageService.to.getString(Constants.STRORAGE_WORKING_HOURS));
+    }
   }
   void minHour(){
     if(workingHours.value==1)return;

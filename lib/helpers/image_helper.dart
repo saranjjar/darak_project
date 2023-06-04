@@ -29,7 +29,12 @@ class ImageHelper{
   static String searchIcon = '${pathIcon}search.svg';
   static String cleanIcon = '${pathIcon}clean.svg';
   static String electricalIcon = '${pathIcon}electrical.svg';
+  //Cat Icons
   static String plumIcon = '${pathIcon}plum.svg';
+  static String decIcon = '${pathIcon}dec.svg';
+  static String acIcon = '${pathIcon}ac.svg';
+  static String devIcon = '${pathIcon}dev.svg';
+  static String elecIcon = '${pathIcon}elec.svg';
   static String homeIcon = '${pathIcon}home.svg';
   static String home1Icon = '${pathIcon}home-2.svg';
   static String book1Icon = '${pathIcon}calendar1.svg';
@@ -49,4 +54,6 @@ class ImageHelper{
   static String cashIcon = '${pathIcon}cashMoney.svg';
   static String masterIcon = '${pathIcon}mastercard.svg';
   static String priceIcon = '${pathIcon}dollar.svg';
+  static String successIcon = '${pathIcon}sucicon.svg';
+  static String emptyBookIcon = '${pathIcon}emptyBook.svg';
 }

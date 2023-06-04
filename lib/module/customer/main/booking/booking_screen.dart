@@ -1,12 +1,14 @@
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
+import 'package:darak_project/module/customer/main/booking/booking_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 class BookingScreen extends StatelessWidget {
-  const BookingScreen({Key? key}) : super(key: key);
-
+   BookingScreen({Key? key}) : super(key: key);
+   final _controller = Get.put(BookingController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -55,10 +57,15 @@ class BookingScreen extends StatelessWidget {
                 SizedBox(height: 20.h,),
                 Expanded(
                   child: TabBarView(
+                    physics: const BouncingScrollPhysics(),
                       children: [
-                        _buildMainBody(),
-                        Text('data'),
-                        Text('data'),
+                        _controller.isLoading
+                            ?
+                        const Center(child: CircularProgressIndicator(),)
+                            :
+                        getBookingRefresh(),
+                        const Text('data'),
+                        const Text('data'),
                       ]),
                 )
               ],
@@ -80,39 +87,54 @@ class BookingScreen extends StatelessWidget {
   }
 
   TextStyle _buildTextStyle() => TextStyle(fontSize: 15,fontFamily: TextHelper.satoshiBold);
-
+  RefreshIndicator getBookingRefresh(){
+    return RefreshIndicator(
+        onRefresh: _controller.asyncLoadPendingBook,
+        child: _controller.bookingList.isEmpty
+            ?
+         Center(child: Column(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             SvgPicture.asset(ImageHelper.emptyBookIcon),
+             SizedBox(height: 5.h,),
+             Text('There is no any Booking now',style: TextStyle(fontFamily: TextHelper.satoshiLight),),
+           ],
+         ),)
+            :
+        _buildMainBody()
+    );
+  }
   Widget _buildMainBody() {
-    return Expanded(
-      child: ListView.separated(
-          physics: const BouncingScrollPhysics(),
-          itemBuilder:(context,index)=>_buildListItem(index),
-          separatorBuilder: (context,index)=>SizedBox(height: 10.h,),
-          itemCount: 10
-      ),
+    return ListView.separated(
+        physics: const BouncingScrollPhysics(),
+        itemBuilder:(context,index)=>_buildListItem(index),
+        separatorBuilder: (context,index)=>SizedBox(height: 10.h,),
+        itemCount: _controller.bookingList.length,
     );
   }
 
   Container _buildListItem(index) {
-//    var item = _controller.reqList[index].data();
+ var item = _controller.bookingList[index].data();
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          color:ColorHelper.offPurpleColor,
+          borderRadius: BorderRadius.circular(20),
           border: Border.all(color: ColorHelper.offPurpleColor)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('item.serviceName!',style: _buildTextStyle1(font:16),maxLines: 1,overflow: TextOverflow.ellipsis,),
+            Text(item.subServiceName!,style: _buildTextStyle1(font:16),maxLines: 1,overflow: TextOverflow.ellipsis,),
             SizedBox(height: 10.h,),
-            _buildItem(icon: ImageHelper.bookIcon,title: 'item.date!'),
+            _buildItem(icon: ImageHelper.profileIcon,title: item.worker!),
             SizedBox(height: 10.h,),
-            _buildItem(icon: ImageHelper.locationIcon,title: 'Gaza'),
+            _buildItem(icon: ImageHelper.bookIcon,title: '${item.date!} ${item.time!}'),
             SizedBox(height: 10.h,),
-            _buildItem(icon: ImageHelper.priceIcon,title: 'item.price}\$'),
+            _buildItem(icon: ImageHelper.locationIcon,title: item.location!),
             SizedBox(height: 10.h,),
-            _buildItem(icon: ImageHelper.profileIcon,title: 'item.price}\$'),
-          ],
+            _buildItem(icon: ImageHelper.priceIcon,title: '${item.price}\$'),
+                      ],
         ),
       ),
     );

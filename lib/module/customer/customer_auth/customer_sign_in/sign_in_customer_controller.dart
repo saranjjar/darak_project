@@ -53,14 +53,14 @@ class SignInController extends GetxController{
           // User was created successfully
 
           final user = userCredential.user;
-          String? displayName = user?.displayName;
+          //String? displayName = user?.displayName;
           String email = user?.email ?? "";
           String id = user?.uid ?? "";
           String photoUrl = user?.photoURL ?? "";
           Users userProfile = Users();
           userProfile.email = email;
           userProfile.accessToken = id;
-          userProfile.displayName = displayName;
+          //userProfile.displayName = displayName;
           userProfile.photoUrl = photoUrl;
           UserStore.t0.saveProfile(userProfile);
           await StorageService.to.setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'CUSTOMER');

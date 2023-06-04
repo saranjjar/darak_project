@@ -1,9 +1,8 @@
 import 'package:darak_project/const.dart';
 import 'package:darak_project/helpers/image_helper.dart';
+import 'package:darak_project/module/customer/main/booking/booking_screen.dart';
 import 'package:darak_project/module/customer/main/chat/chat_history/chat_history_screen.dart';
-import 'package:darak_project/module/customer/main/chat/chat_screen.dart';
 import 'package:darak_project/module/customer/main/home/home_screen.dart';
-import 'package:darak_project/module/customer/main/notification/notification_screen.dart';
 import 'package:darak_project/module/customer/main/settings/settings_screen.dart';
 import 'package:darak_project/module/customer/main/worker_home/worker_home_screen.dart';
 import 'package:darak_project/services/common/shared_pref.dart';
@@ -39,7 +38,7 @@ class LayoutController extends GetxController {
       activeIcon: SvgPicture.asset(ImageHelper.homeIcon)
     ),
     BottomNavigationBarItem(
-    label: 'Calender',
+    label: 'Booking',
     icon: SvgPicture.asset(ImageHelper.bookIcon),
     activeIcon: SvgPicture.asset(ImageHelper.book1Icon),
     ),

@@ -19,7 +19,7 @@ class ProfileCategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return  GetBuilder<ProfileCategoryController>(builder: (controller)=>Scaffold(
         backgroundColor: ColorHelper.divColor,
-        appBar: buildAppBar(title:_controller.serviceName!),
+        appBar: buildAppBar(title:_controller.subServiceName!),
         body: _buildMainBody()
     ));
   }

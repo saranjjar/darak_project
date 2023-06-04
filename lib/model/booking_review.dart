@@ -5,24 +5,30 @@ class BookingReview {
   final String? toUid;
   final String? nameCustomer;
   final String? serviceName;
-  final String? category;
+  final String? subServiceName;
+  //final String? category;
   final String? worker;
   final String? date;
+  final String? time;
   final String? workingHours;
   final String? price;
   final String? status;
+  final String? location;
 
   BookingReview({
     this.uid,
     this.toUid,
     this.nameCustomer,
     this.serviceName,
-    this.category,
+    this.subServiceName,
+    //this.category,
     this.worker,
     this.date,
+    this.time,
     this.workingHours,
     this.price,
     this.status,
+    this.location
   });
 
   factory BookingReview.fromFirestore(
@@ -35,12 +41,15 @@ class BookingReview {
       toUid: data?['toUid'],
       nameCustomer: data?['nameCustomer'],
       serviceName: data?['serviceName'],
-      category: data?['category'],
+      subServiceName: data?['subServiceName'],
+      //category: data?['category'],
       worker: data?['worker'],
       date: data?['date'],
+      time: data?['time'],
       workingHours: data?['workingHours'],
       price: data?['price'],
       status: data?['status'],
+      location: data?['location'],
     );
   }
 
@@ -50,12 +59,15 @@ class BookingReview {
       if(toUid !=null) "toUid" : toUid,
       if(nameCustomer !=null) "nameCustomer" : nameCustomer,
       if(serviceName !=null) "serviceName" : serviceName,
-      if(category !=null) "category" : category,
+      if(subServiceName !=null) "subServiceName" : subServiceName,
+      //if(category !=null) "category" : category,
       if(worker !=null) "worker" : worker,
       if(date !=null) "date" : date,
+      if(time !=null) "time" : time,
       if(workingHours !=null) "workingHours" : workingHours,
       if(price !=null) "price" : price,
       if(status !=null) "status" : status,
+      if(location !=null) "location" : location,
     };
   }
 }

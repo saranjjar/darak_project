@@ -1,18 +1,14 @@
 import 'package:darak_project/Application/app_router/app_router.dart';
-import 'package:darak_project/const.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
-import 'package:darak_project/module/customer/main/layout/layout_screen.dart';
 import 'package:darak_project/module/worker/addInfo/add_info_controller.dart';
-import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 
@@ -21,6 +17,14 @@ class AddInfoScreen extends StatelessWidget {
    AddInfoScreen({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
   final _controller = Get.put(AddInfoController());
+   List<String> icon = [
+     ImageHelper.acIcon,
+     ImageHelper.devIcon,
+     ImageHelper.cleanIcon,
+     ImageHelper.elecIcon,
+     ImageHelper.decIcon,
+     ImageHelper.plumIcon,
+   ];
   @override
   Widget build(BuildContext context) {
 
@@ -111,7 +115,7 @@ class AddInfoScreen extends StatelessWidget {
                                 fontSize: 15,
                                 fontFamily: TextHelper.satoshiBold,
                               ),),
-                              const SizedBox(height: 20,),
+                               SizedBox(height: 10.h,),
                               InkWell(
                                 onTap: () {
                                   showDialog(
@@ -132,6 +136,10 @@ class AddInfoScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: Row(
                                       children: [
+                                        controller.valid? Padding(
+                                          padding: const EdgeInsets.only(right: 8.0),
+                                          child: CircleAvatar(child: SvgPicture.asset(controller.icon),),
+                                        ):Container(),
                                         Text(controller.serviceName,style: TextStyle(fontFamily: TextHelper.satoshiRegular,fontSize: 15),),
                                         const Spacer(),
                                         IconButton(
@@ -145,62 +153,72 @@ class AddInfoScreen extends StatelessWidget {
 
                                 ),
                               ),
+                               SizedBox(height: 20.h,),
+                              TextFormFieldCustom(
 
+                                width: width,
+                                keyboardType: TextInputType.text,
+                                textEditingController: controller.subService,
+                                label: 'Type',
+                                validator: (value ) {
+                                  if(value!.isEmpty) return 'must enter value';
+                                },
+                            ),
                             ],
                           )),
                           SizedBox(height: 20.h,),
                           //Contact Info
-                          buildContainer(
-                            width,
-                            controller,
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Contact Info',style: TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: TextHelper.satoshiBold,
-                                ),),
-                                const SizedBox(height: 20,),
-                                Column(
-                                  children: [
-                                    TextFormFieldCustom(
-                                        width: width,
-                                        keyboardType: TextInputType.text,
-                                        textEditingController: controller.emailController,
-                                        label: 'Email',
-                                        validator: (value ) {
-                                          if(value!.isEmpty) return 'must enter value';
-                                        },
-                                        suffixIcon:  Icon(Icons.email,color: ColorHelper.warmGrey,)
-                                    ),
-                                    const SizedBox(height: 20,),
-                                    TextFormFieldCustom(
-                                        width: width,
-                                        keyboardType: TextInputType.text,
-                                        textEditingController: controller.mobileController,
-                                        label: 'Mobile',
-                                        validator: (value ) {
-                                          if(value!.isEmpty) return 'must enter value';
-                                        },
-                                        suffixIcon:  Icon(Icons.phone_android_rounded,color: ColorHelper.warmGrey,)
-                                    ),
-                                    const SizedBox(height: 20,),
-                                    TextFormFieldCustom(
-                                        width: width,
-                                        keyboardType: TextInputType.text,
-                                        textEditingController: controller.IDController,
-                                        label: 'ID Number',
-                                        validator: (value ) {
-                                          if(value!.isEmpty) return 'must enter value';
-                                        },
-                                        suffixIcon:  Icon(Icons.perm_identity_sharp,color: ColorHelper.warmGrey,)
-                                    ),
-                                  ],
-                                )
-                              ],
-                            )
-                          ),
-                          SizedBox(height: 20.h,),
+                          // buildContainer(
+                          //   width,
+                          //   controller,
+                          //   Column(
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: [
+                          //       Text('Contact Info',style: TextStyle(
+                          //         fontSize: 15,
+                          //         fontFamily: TextHelper.satoshiBold,
+                          //       ),),
+                          //       const SizedBox(height: 20,),
+                          //       Column(
+                          //         children: [
+                          //           TextFormFieldCustom(
+                          //               width: width,
+                          //               keyboardType: TextInputType.text,
+                          //               textEditingController: controller.emailController,
+                          //               label: 'Email',
+                          //               validator: (value ) {
+                          //                 if(value!.isEmpty) return 'must enter value';
+                          //               },
+                          //               suffixIcon:  Icon(Icons.email,color: ColorHelper.warmGrey,)
+                          //           ),
+                          //           const SizedBox(height: 20,),
+                          //           TextFormFieldCustom(
+                          //               width: width,
+                          //               keyboardType: TextInputType.text,
+                          //               textEditingController: controller.mobileController,
+                          //               label: 'Mobile',
+                          //               validator: (value ) {
+                          //                 if(value!.isEmpty) return 'must enter value';
+                          //               },
+                          //               suffixIcon:  Icon(Icons.phone_android_rounded,color: ColorHelper.warmGrey,)
+                          //           ),
+                          //           const SizedBox(height: 20,),
+                          //           TextFormFieldCustom(
+                          //               width: width,
+                          //               keyboardType: TextInputType.text,
+                          //               textEditingController: controller.IDController,
+                          //               label: 'ID Number',
+                          //               validator: (value ) {
+                          //                 if(value!.isEmpty) return 'must enter value';
+                          //               },
+                          //               suffixIcon:  Icon(Icons.perm_identity_sharp,color: ColorHelper.warmGrey,)
+                          //           ),
+                          //         ],
+                          //       )
+                          //     ],
+                          //   )
+                          // ),
+                          // SizedBox(height: 20.h,),
                           Obx(() =>
                               _controller.isLoadingRequest.value
                                   ?
@@ -209,8 +227,18 @@ class AddInfoScreen extends StatelessWidget {
                               D_MaterialButton(
                               color: Colors.white,
                               onPressed: () {
-                                controller.addInfoWorker(subcategoryID: controller.serviceName);
-                                 Get.offNamed(Routes.layoutRoute);
+
+                                // if(controller.serviceName=='Choose service'||controller.imgUrl==''){
+                                //   showSnackbar(context, Colors.grey.shade600, 'you must enter your Category');
+                                //   return;
+                                // }
+                                if(
+                                _formKey.currentState!.validate()
+                                    &&
+                                    (controller.serviceName!='Choose service'||controller.imgUrl!='')) {
+                                  controller.addInfoWorker(subcategoryID: controller.serviceName);
+                                }
+
                               },
                               child:  Text('Add Now',
                                 style: buildTextStyleBtn(color: Colors.black),), width: double.infinity))
@@ -234,7 +262,7 @@ class AddInfoScreen extends StatelessWidget {
                           ),
                         );
   }
-  List<String> service = ['Cleaning','Air Conditioning','Plumbing','Interior Design','Electrical','Appliance '];
+  List<String> service = ['Cleaning','Air Conditioning','Plumbing','Interior Design','Electrical','Appliance'];
   Widget _buildAlertDialog(BuildContext context) {
     return  AlertDialog(
       scrollable: true,
@@ -246,10 +274,11 @@ class AddInfoScreen extends StatelessWidget {
               service.length , (index) {
             return GestureDetector(
               onTap: () {
-                _controller.chooseServiceType(service: service[index]) ;
+                _controller.chooseServiceType(service: service[index],icons: icon[index]) ;
                 Navigator.pop(context);
               },
               child: ListTile(
+                leading:CircleAvatar(child: SvgPicture.asset(icon[index]),),
                 title: Text(
                   service[index],
                   style:  TextStyle(

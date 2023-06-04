@@ -6,6 +6,7 @@ import 'package:darak_project/module/customer/customer_auth/customer_sign_up/sig
 import 'package:darak_project/module/customer/customer_auth/forget_customer_password/customer_verification/reset_customer_password/reset_password_customer_controller.dart';
 import 'package:darak_project/module/customer/customer_auth/forget_customer_password/customer_verification/verification_customer_controller.dart';
 import 'package:darak_project/module/customer/customer_auth/forget_customer_password/forget_password_customer_controller.dart';
+import 'package:darak_project/module/customer/main/booking/booking_controller.dart';
 import 'package:darak_project/module/customer/main/chat/chat_controller.dart';
 import 'package:darak_project/module/customer/main/chat/chat_history/chat_history_controller.dart';
 import 'package:darak_project/module/customer/main/chat/in_chat/inchat_controller.dart';
@@ -47,6 +48,7 @@ class Binding extends Bindings {
     Get.lazyPut(() => BookDetailsController(), fenix: true);
     Get.lazyPut(() => LocationDetailsController(), fenix: true);
     Get.lazyPut(() => BookDetailsController(), fenix: true);
+    Get.lazyPut(() => BookingController(), fenix: true);
 
     //worker
     Get.lazyPut(() => SignUpWoController(), fenix: true);

@@ -13,7 +13,7 @@ class LayoutScreen extends StatelessWidget {
     return GetBuilder<LayoutController>(builder: (controller)=>SafeArea(
       child: Scaffold(
             backgroundColor: Colors.white,
-            appBar: buildAppBarPrimary(title: controller.titles[controller.currantScreenIndex]),
+            appBar:controller.currantScreenIndex!=0?buildAppBarPrimary(title: controller.titles[controller.currantScreenIndex]):null,
             body: controller.screens[controller.currantScreenIndex],
             bottomNavigationBar:
                 BottomNavigationBar(

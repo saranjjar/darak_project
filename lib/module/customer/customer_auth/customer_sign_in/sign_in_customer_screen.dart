@@ -116,9 +116,9 @@ class SignInScreen extends StatelessWidget {
     return SafeArea(
       child: Form(
           key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
               SizedBox(height: 10.h,),
               TextFormFieldCustom(
@@ -265,9 +265,9 @@ class SignInScreen extends StatelessWidget {
     return SafeArea(
       child: Form(
           key: formKey2,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
               SizedBox(height: 10.h,),
               TextFormFieldCustom(
@@ -401,7 +401,7 @@ class SignInScreen extends StatelessWidget {
                             line: TextDecoration.underline),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.to(SignUpWoScreen());
+                            Get.to(SignUpScreen());
                           }),
                   ],
                 )),

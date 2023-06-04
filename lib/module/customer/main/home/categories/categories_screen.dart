@@ -6,6 +6,7 @@ import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:darak_project/module/customer/main/chat/chat_controller.dart';
 import 'package:darak_project/module/customer/main/home/categories/categories_controller.dart';
 import 'package:darak_project/services/common/shared_pref.dart';
+import 'package:darak_project/services/common/user_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -68,12 +69,13 @@ class CategoriesScreen extends StatelessWidget {
      onTap: ()async {
        await StorageService.to.setString(Constants.STRORAGE_ID_CHAT,id!);
        await StorageService.to.setString(Constants.STRORAGE_PHOTO_CHAT,photo!);
-       await StorageService.to.setString(Constants.STRORAGE_WORKER_NAME,item.username!);
+       getWorkerData(item);
        Get.toNamed(Routes.profileCategoryRoutes,parameters:{
         'bio': item.bio!,
         'price': item.price!,
         'location': item.location!,
         'photo': item.photo!,
+
        });
      },
      child: Padding(
@@ -114,7 +116,7 @@ class CategoriesScreen extends StatelessWidget {
                        overflow: TextOverflow.ellipsis,
                      ),
                      SizedBox(height: 8.h,),
-                     Text(item.service!,style: _textStyle(TextHelper.satoshiRegular),
+                     Text(item.subService!,style: _textStyle(TextHelper.satoshiRegular),
                        maxLines: 1,
                        overflow: TextOverflow.ellipsis,
                      ),
@@ -173,8 +175,10 @@ class CategoriesScreen extends StatelessWidget {
 
   Future<void> getWorkerData(item) async{
   await StorageService.to.setString(Constants.STRORAGE_TO_UID, item.id??"");
-  await StorageService.to.setString(Constants.STRORAGE_WORKER_NAME, item.username??"");
+  await StorageService.to.setString(Constants.STRORAGE_WORKER_NAME, item.username!);
   await StorageService.to.setString(Constants.STRORAGE_SERVICE_NAME, item.service??"");
-
+  await StorageService.to.setString(Constants.STRORAGE_LOCATION_WORKER,item.location!);
+  await StorageService.to.setString(Constants.STRORAGE_SUB_SERVICE_NAME,item.subService!);
+  await StorageService.to.setString(Constants.STRORAGE_NAME_USER,UserStore.t0.profile.displayName!);
   }
 }

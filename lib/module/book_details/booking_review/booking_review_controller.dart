@@ -2,14 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/const.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
+import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:darak_project/model/booking_review.dart';
 import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:darak_project/services/common/user_store.dart';
 import 'package:darak_project/widgets/components/components.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class BookingReviewController extends GetxController {
@@ -28,6 +29,9 @@ class BookingReviewController extends GetxController {
   String toUid = StorageService.to.getString(Constants.STRORAGE_TO_UID) ?? '-';
   String worker = StorageService.to.getString(Constants.STRORAGE_WORKER_NAME)??'';
   String serviceName = StorageService.to.getString(Constants.STRORAGE_SERVICE_NAME)??"";
+  String subServiceName = StorageService.to.getString(Constants.STRORAGE_SUB_SERVICE_NAME)??"";
+  String location = StorageService.to.getString(Constants.STRORAGE_LOCATION_WORKER)??"";
+  String username = Constants.STRORAGE_NAME_USER;
 
   final user_id = UserStore.t0.token;
   final db = FirebaseFirestore.instance;
@@ -38,14 +42,16 @@ class BookingReviewController extends GetxController {
       final content = BookingReview(
           uid: user_id,
           toUid: toUid,
-          nameCustomer: UserStore.t0.profile.displayName,
+          nameCustomer:  username,
           serviceName: serviceName,
-          category: StorageService.to.getString(Constants.STRORAGE_SERVICE_NAME),
+          subServiceName: subServiceName,
           date: date,
+          time:time,
           status: 'pending',
           worker: worker,
           workingHours: workingHour,
-          price: price
+          price: price,
+          location: location,
       );
           await db
               .collection('booking')
@@ -64,6 +70,7 @@ class BookingReviewController extends GetxController {
     }
       isLoading.value = false;
       showDefaultDialog();
+      removeCashedData();
 //       final requestDoc = FirebaseFirestore.instance.collection('requests').doc('Hello World').collection('clean').doc();
 //       await requestDoc.set({
 //         'serviceProviderId': to_uid.value,
@@ -122,14 +129,23 @@ class BookingReviewController extends GetxController {
 
   void showDefaultDialog() {
     Get.defaultDialog(
+      barrierDismissible: false,
       title: "",
       titleStyle: TextStyle(fontFamily: TextHelper.satoshiBold,fontSize: 18),
       content:  Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const Icon(Icons.check_circle,size: 50,color: ColorHelper.green1,),
-            Text("Booking Service Success",style: TextStyle(fontFamily: TextHelper.satoshiMedium,fontSize: 14),),
+            SvgPicture.asset(ImageHelper.successIcon,height: 50,width: 50,),
+            Column(
+              children: [
+                Text("Successful",
+                  style: TextStyle(fontFamily: TextHelper.satoshiBold,fontSize: 16,color: ColorHelper.green1),textAlign: TextAlign.center,),
+               SizedBox(height: 2.h,),
+                Text("You have a successfully payment and book the services.",
+                  style: TextStyle(fontFamily: TextHelper.satoshiMedium,fontSize: 16),textAlign: TextAlign.center,),
+              ],
+            ),
           ],
         ),
       ),
@@ -139,14 +155,16 @@ class BookingReviewController extends GetxController {
 
     );
   }
-  remove(){
+  removeCashedData(){
     StorageService.to.remove(Constants.STRORAGE_WORKER_NAME);
     StorageService.to.remove(Constants.STRORAGE_SERVICE_NAME);
+    StorageService.to.remove(Constants.STRORAGE_SUB_SERVICE_NAME);
     StorageService.to.remove(Constants.STRORAGE_TO_UID);
     StorageService.to.remove(Constants.STRORAGE_Date);
     StorageService.to.remove(Constants.STRORAGE_PRICE);
     StorageService.to.remove(Constants.STRORAGE_TIME);
     StorageService.to.remove(Constants.STRORAGE_WORKING_HOURS);
+    StorageService.to.remove(Constants.STRORAGE_LOCATION_WORKER);
 
   }
   @override
@@ -157,6 +175,8 @@ class BookingReviewController extends GetxController {
     to_uid.value = StorageService.to.getString(Constants.STRORAGE_TO_UID);
     to_name.value = StorageService.to.getString(Constants.STRORAGE_TO_NAME);
     to_avatar.value = StorageService.to.getString(Constants.STRORAGE_TO_AVATAR);
+     username = StorageService.to.getString(Constants.STRORAGE_NAME_USER);
+
   }
 
 // @override

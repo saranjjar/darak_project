@@ -23,13 +23,19 @@ class HomeScreen extends StatelessWidget {
     final _controllerCategory = Get.put(CategoriesController());
     final _controller = Get.put(HomeController());
     var pageViewController = PageController();
-    bool isLast = false;
-    bool isFirst = true;
 
     List<modelItem> model = [
       modelItem(ImageHelper.adsImg1),
       modelItem(ImageHelper.adsImg2),
       modelItem(ImageHelper.adsImg3),
+    ];
+    List<String> icon = [
+      ImageHelper.acIcon,
+      ImageHelper.devIcon,
+      ImageHelper.cleanIcon,
+      ImageHelper.elecIcon,
+      ImageHelper.decIcon,
+      ImageHelper.plumIcon,
     ];
 
     @override
@@ -54,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Hi, ${UserStore.t0.profile.displayName}👋',style: TextStyle(
+                      Text('Hi, ${controller.userName}👋',style: TextStyle(
                           fontFamily: TextHelper.satoshiBold,
                           fontSize: 18
                       ),),
@@ -89,7 +95,6 @@ class HomeScreen extends StatelessWidget {
                 prefixIcon: SvgPicture.asset(ImageHelper.searchIcon,fit: BoxFit.none,),
                 label: 'Search',
               ),
-              SizedBox(height: 10.h,),
               Row(
                 children: [
                   Text(TextHelper.specialOff,style: _buildTextStyle(),),
@@ -125,9 +130,9 @@ class HomeScreen extends StatelessWidget {
                          controller: pageViewController,
                           itemBuilder: (context, index) => buildItem(model[index])),
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                    // SizedBox(
+                    //   height: 5.h,
+                    // ),
                     SmoothPageIndicator(
                       controller: pageViewController,
                       count: 3,
@@ -143,9 +148,9 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 10.h,),
+              SizedBox(height: 5.h,),
               Text(TextHelper.services,style: _buildTextStyle(),),
-              SizedBox(height: 10.h,),
+              SizedBox(height: 5.h,),
                Expanded(
                 child: GridView.count(
                   physics: const BouncingScrollPhysics(),
@@ -167,7 +172,7 @@ class HomeScreen extends StatelessWidget {
                                 "service_name" : controller.categoryList[index].data().serviceName!,
                               });
                             },
-                            child: _buildGridItem(controller.categoryList[index]),
+                            child: _buildGridItem(controller.categoryList[index],icon[index]),
                           )
                   ),
 
@@ -179,7 +184,7 @@ class HomeScreen extends StatelessWidget {
   );
    }
 
-   Widget _buildGridItem(QueryDocumentSnapshot<Category> item) {
+   Widget _buildGridItem(QueryDocumentSnapshot<Category> item,String icon) {
 
      return Container(
          height: 120.h,
@@ -189,13 +194,14 @@ class HomeScreen extends StatelessWidget {
              color: ColorHelper.offPurpleColor
          ),
          child: Column(
-           crossAxisAlignment: CrossAxisAlignment.center,
            mainAxisAlignment: MainAxisAlignment.center,
            children: [
              CircleAvatar(
                backgroundColor:ColorHelper.primaryColor,
                radius: 25.r,
-               child: Image.network(item.data().icon!),),
+               child: SvgPicture.asset(icon)
+             //  Image.network(item.data().icon!),
+             ),
              Padding(
                padding: const EdgeInsets.all(8.0),
                child: Text(item.data().serviceName!,style: TextStyle(

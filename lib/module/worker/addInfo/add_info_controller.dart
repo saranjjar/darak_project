@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/const.dart';
 import 'package:darak_project/model/sub_category.dart';
+import 'package:darak_project/module/customer/main/worker_home/worker_home_controller.dart';
 import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -14,15 +16,20 @@ import 'package:random_string/random_string.dart';
 
 class AddInfoController extends GetxController{
 
+  final _controllerFavSer = Get.put(WorkerHomeController());
+  bool valid = false;
   String serviceName = 'Choose service';
+  String icon ='';
   int categoryIndex = 0;
   String? id ;
 
-  getService(){
-    return serviceName;
-  }
-  void chooseServiceType({required String service}) {
+  // getService(){
+  //   return serviceName;
+  // }
+  void chooseServiceType({required String service,required String icons,}) {
     serviceName = service;
+    icon = icons;
+    valid = true;
     update();
   }
 
@@ -33,6 +40,7 @@ class AddInfoController extends GetxController{
       locationController ,
       emailController,
       mobileController,
+      subService,
       IDController;
   String? accessToken;
   @override
@@ -50,6 +58,7 @@ class AddInfoController extends GetxController{
     emailController = TextEditingController();
     mobileController = TextEditingController();
     IDController = TextEditingController();
+    subService = TextEditingController();
 
     super.onInit();
   }
@@ -111,7 +120,9 @@ class AddInfoController extends GetxController{
     emailController.clear();
     mobileController.clear();
     IDController.clear();
-
+    imgUrl='';
+    serviceName='Choose service';
+    valid=false;
     update();
 
   }
@@ -128,10 +139,13 @@ class AddInfoController extends GetxController{
       bio: bioController.text,
       idNumber: IDController.text,
       mobile: mobileController.text,
-      email: emailController.text,
+      email: emailController.text??"",
       photo: imgUrl,
       service: subcategoryID,
+      subService: subService.text,
+
     );
+
     await db.collection('category').doc(subcategoryID).collection(
         'sub_category').withConverter(
         fromFirestore: SubCategory.fromFirestore,
@@ -140,8 +154,17 @@ class AddInfoController extends GetxController{
     ).add(information).then((DocumentReference doc) {
       Get.focusScope?.unfocus();
     });
+    await db.collection('FavService').withConverter(
+        fromFirestore: SubCategory.fromFirestore,
+        toFirestore: (SubCategory subCategory, options) =>
+            subCategory.toFirestore()
+    ).add(information).then((DocumentReference doc) {
+      Get.focusScope?.unfocus();
+    });
+    _controllerFavSer.asyncLoadAllData();
     reset();
       await StorageService.to.setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'Worker');
     isLoadingRequest.value = false;
+    Get.offNamed(Routes.layoutRoute);
+    }
   }
-}

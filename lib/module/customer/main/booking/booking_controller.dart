@@ -1,19 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:darak_project/model/booking_review.dart';
-import 'package:darak_project/model/sub_category.dart';
 import 'package:darak_project/services/common/user_store.dart';
 import 'package:get/get.dart';
 
-class WorkerHomeController extends GetxController{
-  RxList<QueryDocumentSnapshot<SubCategory>> serviceList = <QueryDocumentSnapshot<SubCategory>> [].obs;
+class BookingController extends GetxController{
+  RxList<QueryDocumentSnapshot<BookingReview>> bookingList = <QueryDocumentSnapshot<BookingReview>> [].obs;
   final token = UserStore.t0.token;
   final db = FirebaseFirestore.instance;
   //final RefreshController refreshController =RefreshController(initialRefresh: true);
 
   @override
   void onReady(){
-    asyncLoadAllData();
-    getUserName();
+    asyncLoadPendingBook();
   }
 
   // void onLoading(){
@@ -25,39 +23,26 @@ class WorkerHomeController extends GetxController{
   // }
 
   bool isLoading = false;
-  Future<void> asyncLoadAllData() async{
+  Future<void> asyncLoadPendingBook() async{
     try{
       isLoading = true;
       update();
-      var service = await db.collection('FavService').withConverter(
-          fromFirestore: SubCategory.fromFirestore,
-          toFirestore: (SubCategory subCategory,options)=>subCategory.toFirestore()).where(
-          "id",isEqualTo:token
-      ).get();
-      if(service.docs.isNotEmpty){
-        serviceList.assignAll(service.docs);
+      var fromBooking = await db.collection("booking").withConverter(
+          fromFirestore: BookingReview.fromFirestore,
+          toFirestore: (BookingReview book,options)=>book.toFirestore()).where(
+          "uid",isEqualTo:token
+      ).where('status',isEqualTo: 'pending').get();
+
+      if(fromBooking.docs.isNotEmpty){
+        bookingList.assignAll(fromBooking.docs);
       }
+
       isLoading = false;
       update();
     }catch(error){
       print(error.toString());
       isLoading = false;
       update();
-    }
-  }
-
-  String userName = '';
-
-  getUserName()async{
-    final userQuerySnapshot  = await FirebaseFirestore.instance
-        .collection('users').where('id',isEqualTo: token)
-        .get();
-    if (userQuerySnapshot.docs.isNotEmpty) {
-      final userDocument = userQuerySnapshot.docs.first;
-      userName = userDocument['name'];
-      print('User Name: $userName');
-      update();
-      // Update your state or perform further operations with the user name
     }
   }
   // getFcmToken() async{

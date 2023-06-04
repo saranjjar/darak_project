@@ -80,7 +80,7 @@ class SignUpScreen extends StatelessWidget {
                      ],
                    ),
                  ),
-                 SizedBox(height: 20.h,),
+                 SizedBox(height: 10.h,),
                  Expanded(
                    child: TabBarView(
                        children: [
@@ -102,9 +102,9 @@ class SignUpScreen extends StatelessWidget {
      return SafeArea(
        child: Form(
            key: formKey,
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.start,
-             crossAxisAlignment: CrossAxisAlignment.start,
+           child: ListView(
+             shrinkWrap: true,
+             physics: const BouncingScrollPhysics(),
              children: <Widget>[
                SizedBox(height: 10.h,),
                TextFormFieldCustom(
@@ -189,7 +189,7 @@ class SignUpScreen extends StatelessWidget {
                  ),
                ),
                SizedBox(
-                 height: 20.h,
+                 height: 15.h,
                ),
                buildChoicesSign(),
                SizedBox(
@@ -227,7 +227,7 @@ class SignUpScreen extends StatelessWidget {
                  ),
                ),
                SizedBox(
-                 height: 30.h,
+                 height: 20.h,
                ),
                Center(
                  child: Text.rich(TextSpan(
@@ -257,9 +257,9 @@ class SignUpScreen extends StatelessWidget {
      return SafeArea(
        child: Form(
            key: formKey2,
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.start,
-             crossAxisAlignment: CrossAxisAlignment.start,
+           child: ListView(
+             shrinkWrap: true,
+             physics: const BouncingScrollPhysics(),
              children: <Widget>[
                SizedBox(height: 10.h),
                TextFormFieldCustom(

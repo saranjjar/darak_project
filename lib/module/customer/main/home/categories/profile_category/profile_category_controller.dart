@@ -5,7 +5,7 @@ import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:get/get.dart';
 
 class ProfileCategoryController extends GetxController{
-    String? serviceName,bio,photo,location,username,price,toUid,id;
+    String? subServiceName,bio,photo,location,username,price,toUid,id;
 
 
   @override
@@ -19,7 +19,7 @@ class ProfileCategoryController extends GetxController{
       price=data['price']??"";
       bio=data['bio']??"";
       photo=data['photo']??"";
-      serviceName = StorageService.to.getString(Constants.STRORAGE_SERVICE_NAME);
+      subServiceName = StorageService.to.getString(Constants.STRORAGE_SUB_SERVICE_NAME);
       username = StorageService.to.getString(Constants.STRORAGE_WORKER_NAME);
   }
 

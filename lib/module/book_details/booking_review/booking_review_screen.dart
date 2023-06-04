@@ -32,15 +32,17 @@ class BookingReviewScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildItem('Service','Cleaning'),
+                    buildItem('Service',_controller.subServiceName),
                     buildDivider(),
-                    buildItem('Category','Cleaning'),
+                    buildItem('Category',_controller.serviceName),
                     buildDivider(),
-                    buildItem('Worker','Cleaning'),
+                    buildItem('Worker',_controller.worker),
                     buildDivider(),
                     buildItem('Date & Time', '${_controller.date} ${_controller.time}',),
                     buildDivider(),
                     buildItem('Working Hours',_controller.workingHour),
+                    buildDivider(),
+                    buildItem('Location',_controller.location),
                   ],
                 ),
               ),
@@ -53,7 +55,7 @@ class BookingReviewScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildItem('sweeping floor','${_controller.price}\$'),
+                    buildItem(_controller.subServiceName,'${_controller.price}\$'),
                     buildDivider(),
                     buildItem('discount','0'),
                     buildDivider(),
