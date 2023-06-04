@@ -31,7 +31,8 @@ class BookingReviewController extends GetxController {
   String serviceName = StorageService.to.getString(Constants.STRORAGE_SERVICE_NAME)??"";
   String subServiceName = StorageService.to.getString(Constants.STRORAGE_SUB_SERVICE_NAME)??"";
   String location = StorageService.to.getString(Constants.STRORAGE_LOCATION_WORKER)??"";
-  String username = Constants.STRORAGE_NAME_USER;
+
+  String userName = '';
 
   final user_id = UserStore.t0.token;
   final db = FirebaseFirestore.instance;
@@ -42,7 +43,7 @@ class BookingReviewController extends GetxController {
       final content = BookingReview(
           uid: user_id,
           toUid: toUid,
-          nameCustomer:  username,
+          nameCustomer:  userName,
           serviceName: serviceName,
           subServiceName: subServiceName,
           date: date,
@@ -71,61 +72,8 @@ class BookingReviewController extends GetxController {
       isLoading.value = false;
       showDefaultDialog();
       removeCashedData();
-//       final requestDoc = FirebaseFirestore.instance.collection('requests').doc('Hello World').collection('clean').doc();
-//       await requestDoc.set({
-//         'serviceProviderId': to_uid.value,
-//         'status': 'pending',
-// //        'content':content,
-//       });
-//       print('Request sent successfully!');
-//     } catch (e) {
-//       print('Failed to send request: $e');
-//     }
-  }
 
-  //send Message Method
-  // sendBookingReview() async {
-  //   try {
-  //     isLoading.value = true;
-  //     final content = BookingReview(
-  //         uid: user_id,
-  //         serviceName: 'Cleaning',
-  //         category: "cleaning",
-  //         date: date,
-  //         status: 'pining',
-  //         worker: 'Loss',
-  //         workingHours: workingHour,
-  //         price: price);
-  //
-  //     await db
-  //         .collection('booking')
-  //         .doc(doc_id)
-  //         .collection('bookDetails')
-  //         .withConverter(
-  //         fromFirestore: BookingReview.fromFirestore,
-  //         toFirestore: (BookingReview bookingReview, options) =>
-  //             bookingReview.toFirestore())
-  //         .add(content)
-  //         .then((DocumentReference doc) {
-  //       Get.focusScope?.unfocus();
-  //     });
-  //     StorageService.to.remove(Constants.STRORAGE_Date);
-  //     StorageService.to.remove(Constants.STRORAGE_PRICE);
-  //     StorageService.to.remove(Constants.STRORAGE_TIME);
-  //     StorageService.to.remove(Constants.STRORAGE_WORKING_HOURS);
-  //     StorageService.to.remove(Constants.STRORAGE_DOC_UID);
-  //     StorageService.to.remove(Constants.STRORAGE_TO_UID);
-  //     StorageService.to.remove(Constants.STRORAGE_TO_NAME);
-  //     StorageService.to.remove(Constants.STRORAGE_TO_AVATAR);
-  //   } catch (error) {
-  //     isLoading.value = false;
-  //     if (kDebugMode) {
-  //       print(error.toString());
-  //     }
-  //   }
-  //   isLoading.value = false;
-  //   showDefaultDialog();
-  // }
+  }
 
   void showDefaultDialog() {
     Get.defaultDialog(
@@ -166,6 +114,8 @@ class BookingReviewController extends GetxController {
     StorageService.to.remove(Constants.STRORAGE_WORKING_HOURS);
     StorageService.to.remove(Constants.STRORAGE_LOCATION_WORKER);
 
+    StorageService.to.remove(Constants.STRORAGE_NAME_USER);
+
   }
   @override
   void onInit() {
@@ -175,38 +125,27 @@ class BookingReviewController extends GetxController {
     to_uid.value = StorageService.to.getString(Constants.STRORAGE_TO_UID);
     to_name.value = StorageService.to.getString(Constants.STRORAGE_TO_NAME);
     to_avatar.value = StorageService.to.getString(Constants.STRORAGE_TO_AVATAR);
-     username = StorageService.to.getString(Constants.STRORAGE_NAME_USER);
-
+    getUserName();
   }
 
-// @override
-// void onReady() {
-//   // TODO: implement onReady
-//   super.onReady();
-//   var messages = db.collection('message').doc(doc_id).collection("msglist").withConverter(
-//       fromFirestore: BookingReview.fromFirestore,
-//       toFirestore: (BookingReview msgcontent,options)=>msgcontent.toFirestore()
-//   ).orderBy("addtime",descending: false);
-//   msgContact.clear();
-//   listener = messages.snapshots().listen((event) {
-//     for(var change in event.docChanges){
-//       switch(change.type){
-//         case DocumentChangeType.added:
-//           if(change.doc.data()!=null){
-//             msgContact.insert(0, change.doc.data()!);
-//           }
-//           break;
-//         case DocumentChangeType.modified:
-//           break;
-//         case DocumentChangeType.removed:
-//           break;
-//
-//       }
-//     }
-//   },
-//       onError: (error)=>print('Listen Failed : $error')
-//   );
-// }
+  final token = UserStore.t0.token;
+
+
+  getUserName()async{
+    final userQuerySnapshot  = await FirebaseFirestore.instance
+        .collection('users').where('id',isEqualTo: token)
+        .get();
+    if (userQuerySnapshot.docs.isNotEmpty) {
+      final userDocument = userQuerySnapshot.docs.first;
+      userName = userDocument['name'];
+     await StorageService.to.setString(Constants.STRORAGE_NAME_USER, userName);
+
+      print('User Name: $userName');
+      update();
+      // Update your state or perform further operations with the user name
+    }
+  }
+
 }
 
 

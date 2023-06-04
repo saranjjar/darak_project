@@ -56,7 +56,7 @@ class SignUpScreen extends StatelessWidget {
                    width: double.infinity,
                    height: 40,
                    decoration: BoxDecoration(
-                     color: Colors.grey.shade400,
+                     color: Colors.grey.shade200,
                      borderRadius: BorderRadius.circular(12),
                    ),
                    child: TabBar(

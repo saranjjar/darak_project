@@ -35,7 +35,7 @@ class Binding extends Bindings {
     Get.lazyPut(() => ForgetPasswordController(), fenix: true);
     Get.lazyPut(() => VerificationController(), fenix: true);
     Get.lazyPut(() => ResetController(), fenix: true);
-    Get.lazyPut(() => HomeController(), fenix: true);
+    Get.put(() => HomeController(), permanent: true);
     Get.lazyPut(() => WorkerHomeController(), fenix: true);
     Get.lazyPut(() => ConfigStore(), fenix: true);
     Get.lazyPut(() => ChatController(), fenix: true);
