@@ -1,8 +1,12 @@
 
 import 'package:darak_project/const.dart';
+import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:darak_project/services/common/shared_pref.dart';
+import 'package:darak_project/widgets/components/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -68,4 +72,30 @@ class BookDetailsController extends GetxController{
     var data = Get.parameters;
     price?.value = data['price']!;
   }
+
+  void showDefaultDialog() {
+    Get.defaultDialog(
+      barrierDismissible: false,
+      title: "",
+      titleStyle: TextStyle(fontFamily: TextHelper.satoshiBold,fontSize: 18),
+      content:  Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            const Icon(Icons.error_outline,color: Colors.red,),
+            Column(
+              children: [
+                Text("Not Completed",
+                  style: TextStyle(fontFamily: TextHelper.satoshiBold,fontSize: 16,color: Colors.red),textAlign: TextAlign.center,),
+                SizedBox(height: 2.h,),
+                Text("You have to enter all required Data",
+                  style: TextStyle(fontFamily: TextHelper.satoshiMedium,fontSize: 16),textAlign: TextAlign.center,),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }

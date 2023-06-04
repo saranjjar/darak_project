@@ -70,8 +70,6 @@ class BookingReviewController extends GetxController {
 
     }
       isLoading.value = false;
-      showDefaultDialog();
-      removeCashedData();
 
   }
 
@@ -98,6 +96,8 @@ class BookingReviewController extends GetxController {
         ),
       ),
       confirm: D_MaterialButton(onPressed: (){
+        sendBookingReview();
+        removeCashedData();
         Get.offAllNamed(Routes.layoutRoute);
       }, child: Text('Done',style: buildTextStyleBtn(),)),
 

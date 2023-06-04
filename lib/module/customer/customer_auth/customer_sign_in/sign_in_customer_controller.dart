@@ -53,7 +53,6 @@ class SignInController extends GetxController{
           // User was created successfully
 
           final user = userCredential.user;
-          //String? displayName = user?.displayName;
           String email = user?.email ?? "";
           String id = user?.uid ?? "";
           String photoUrl = user?.photoURL ?? "";
@@ -66,7 +65,6 @@ class SignInController extends GetxController{
           await StorageService.to.setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'CUSTOMER');
           Get.offAllNamed(Routes.layoutRoute);
         }
-    //?? user?.email!
          else {
           // User was not created successfully
           showSnackbar(context, Colors.red, "User created failed");

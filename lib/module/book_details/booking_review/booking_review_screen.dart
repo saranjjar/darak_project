@@ -96,7 +96,8 @@ class BookingReviewScreen extends StatelessWidget {
               D_MaterialButton(
                   width: double.infinity,
                   onPressed: (){
-                    _controller.sendBookingReview();
+
+                    _controller.showDefaultDialog();
                   },
                   child: Text('Confirm Booking',style: buildTextStyleBtn(),)
               ),)
