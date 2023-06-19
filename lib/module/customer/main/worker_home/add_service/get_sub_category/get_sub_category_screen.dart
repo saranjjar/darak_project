@@ -65,7 +65,7 @@ class GetSubCategoryScreen extends StatelessWidget {
              SlidableAction(
                borderRadius: BorderRadius.circular(15),
                onPressed: (context){
-               print('object');
+               deleteService(_controller.subServiceList[index].id);
                },
              backgroundColor: ColorHelper.redColor,
                icon: Icons.delete,
@@ -101,7 +101,9 @@ class GetSubCategoryScreen extends StatelessWidget {
                SizedBox(height: 10.h,),
                Row(
                  children: [
-                   const Icon(Icons.star,color: ColorHelper.yellow2,),
+                   SvgPicture.asset(ImageHelper.starIcon),
+                   SizedBox(width: 5.w,),
+                   //const Icon(Icons.star,color: ColorHelper.yellow2,),
                    Text(
                     '4.9',style: _buildTextStyle1(font:14,family: TextHelper.satoshiLight),),
                    SizedBox(width: 8.w,),
@@ -178,4 +180,40 @@ class GetSubCategoryScreen extends StatelessWidget {
        ),
      );
    }
+
+  void deleteService(String idDoc) {
+      Get.defaultDialog(
+        radius: 12,
+        title: '',
+        content: Column(
+          children: [
+            Text('Are you sure you want to delete it ?',style: TextStyle(fontFamily: TextHelper.satoshiRegular),),
+            SizedBox(height: 8.h,),
+            MyDivided(color: ColorHelper.divColor),
+            Row(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: D_TextButton(
+                      onPressed: (){
+                        _controller.deleteService(idDoc: idDoc);
+                        Get.back();
+                      }, text: 'Delete',line: TextDecoration.none,color: ColorHelper.redColor,)),
+                Container(
+                  width: 1,
+                  height: 40,
+                  color: ColorHelper.divColor,
+                ),
+
+                Expanded(
+                    flex: 1,
+                    child: D_TextButton(onPressed: (){
+                      Get.back();
+                    }, text: 'Cancel',line: TextDecoration.none,color: ColorHelper.greenColor,)),
+              ],
+            )
+          ],
+        )
+      );
+  }
 }

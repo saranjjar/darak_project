@@ -1,11 +1,9 @@
-import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:darak_project/module/customer/customer_auth/customer_sign_in/sign_in_customer_screen.dart';
 import 'package:darak_project/module/customer/customer_auth/customer_sign_up/sign_up_customer_controller.dart';
 import 'package:darak_project/module/worker/worker_sign_up/sign_up_worker_controller.dart';
-import 'package:darak_project/module/worker/worker_sign_up/sign_up_worker_screen.dart';
 import 'package:darak_project/utils/utils.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/textformfield.dart';
@@ -46,7 +44,7 @@ class SignUpScreen extends StatelessWidget {
                  SizedBox(
                    height: 5.h,
                  ),
-                 Text('Sign in to access your account 🤩',
+                 Text('Sign Up to access your Services 🤩',
                      style: TextStyle(
                        fontFamily: TextHelper.satoshiRegular,
                        fontSize: 16,
@@ -265,7 +263,7 @@ class SignUpScreen extends StatelessWidget {
              children: <Widget>[
                SizedBox(height: 10.h),
                TextFormFieldCustom(
-                 prefixIcon: Icon(Icons.person),
+                 prefixIcon: const Icon(Icons.person),
                  label: 'User Name',
                  // check tha validation
                  validator: (val) {
@@ -277,7 +275,7 @@ class SignUpScreen extends StatelessWidget {
                ),
                SizedBox(height: 10.h,),
                TextFormFieldCustom(
-                 prefixIcon: Icon(Icons.email),
+                 prefixIcon: const Icon(Icons.email),
                  label: TextHelper.hintEmail,
                  // check tha validation
                  validator: (val) {
@@ -292,7 +290,7 @@ class SignUpScreen extends StatelessWidget {
                ),
                SizedBox(height: 10.h),
                TextFormFieldCustom(
-                 prefixIcon: Icon(Icons.phone),
+                 prefixIcon: const Icon(Icons.phone),
                  label: 'Phone',
                  // check tha validation
                  validator: (val) {
@@ -304,6 +302,7 @@ class SignUpScreen extends StatelessWidget {
                ),
                SizedBox(height: 10.h),
                Obx(() => TextFormFieldCustom(
+                 prefixIcon:const Icon(Icons.lock),
                  label: TextHelper.hintPass,
                  suffixIcon: InkWell(
                    onTap: (){
@@ -415,8 +414,12 @@ class SignUpScreen extends StatelessWidget {
 
    BoxDecoration _buildTabDecoration() {
      return BoxDecoration(
-         color: ColorHelper.offPurpleColor,
-         borderRadius: BorderRadius.circular(10));
+         color: ColorHelper.light1,
+         borderRadius: BorderRadius.circular(12),
+         border: Border.all(
+             color: Colors.grey.shade200
+         )
+     );
    }
 
    TextStyle _buildTextStyle() => TextStyle(fontSize: 15,fontFamily: TextHelper.satoshiBold);

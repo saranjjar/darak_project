@@ -56,5 +56,16 @@ class GetSubCategoryController extends GetxController{
     }
 
   }
+  Future<void> deleteService({required String idDoc}) async {
+    try{ db.collection("FavService").doc(idDoc).delete();
+    print('Status updated successfully');
+    await asyncLoadAllData();
+    dismissKeyboard();
+    }
+    catch(error) {
+      print('Failed to update status: $error');
+    }
+
+  }
 
 }

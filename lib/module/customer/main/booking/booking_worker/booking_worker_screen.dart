@@ -131,7 +131,7 @@ class BookingWorkerScreen extends StatelessWidget {
     );
   }
   Widget _buildCompletedListItem(index) {
-    var item = _controller.upComingList[index].data();
+    var item = _controller.completedList[index].data();
     return Material(
       elevation: 0,
       clipBehavior: Clip.antiAliasWithSaveLayer,

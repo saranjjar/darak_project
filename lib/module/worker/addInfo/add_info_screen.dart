@@ -18,12 +18,12 @@ class AddInfoScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _controller = Get.put(AddInfoController());
    List<String> icon = [
-     ImageHelper.acIcon,
-     ImageHelper.devIcon,
      ImageHelper.cleanIcon,
+     ImageHelper.acIcon,
+     ImageHelper.plumIcon,
+     ImageHelper.decIcon,
      ImageHelper.elecIcon,
      ImageHelper.decIcon,
-     ImageHelper.plumIcon,
    ];
   @override
   Widget build(BuildContext context) {

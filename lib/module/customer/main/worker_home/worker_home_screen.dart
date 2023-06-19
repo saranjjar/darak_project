@@ -1,3 +1,4 @@
+import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
@@ -84,22 +85,43 @@ class WorkerHomeScreen extends StatelessWidget {
                        borderRadius: BorderRadius.circular(12)
                      ),
                    ),
-                   Row(
+                   _controller.serviceList.isEmpty
+                       ?
+                   Center(child: Padding(
+                     padding: const EdgeInsets.all(40.0),
+                     child: Column(
+                       children: [
+                         SvgPicture.asset(ImageHelper.emptyBookIcon),
+                         SizedBox(height: 16.h,),
+                         D_MaterialButton(onPressed: (){
+                           Get.toNamed(Routes.addInfoRoute);
+                         }, child:Text('Add your Services !',style: buildTextStyleBtn()),
+                         )
+                       ],
+                     ),
+                   ))
+                      :
+                   Column(
                      children: [
-                       Text(
-                         'My Services',
-                         style:
-                         _buildTextStyle(),
+                       Row(
+                         children: [
+                           Text(
+                             'My Services',
+                             style:
+                             _buildTextStyle(),
+                           ),
+                           const Spacer(),
+                           D_TextButton(onPressed: (){
+                             Get.to(()=>AddServiceScreen());
+                           }, text: 'See All',line: TextDecoration.none,color: ColorHelper.greyColor,)
+                         ],
                        ),
-                       const Spacer(),
-                       D_TextButton(onPressed: (){
-                         Get.to(()=>AddServiceScreen());
-                       }, text: 'See All',line: TextDecoration.none,color: ColorHelper.greyColor,)
-                     ],
-                   ),
-                   SizedBox(height: 10.h,),
+                       SizedBox(height: 10.h,),
 
-                   getService(),
+                       getService(),
+                     ],
+                   )
+
                  ],
                ),
              ),
@@ -110,20 +132,7 @@ class WorkerHomeScreen extends StatelessWidget {
    RefreshIndicator getService(){
      return RefreshIndicator(
          onRefresh: _controller.asyncLoadAllData,
-         child: _controller.serviceList.isEmpty
-             ?
-          Center(child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                SvgPicture.asset(ImageHelper.emptyBookIcon),
-                SizedBox(height: 16.h,),
-                Text('Add your Services !',style: TextStyle(fontFamily: TextHelper.satoshiLight,fontSize: 18),),
-              ],
-            ),
-          ))
-             :
-         _buildMainBody(_controller)
+         child: _buildMainBody(_controller)
      );
    }
 
