@@ -84,6 +84,7 @@ class ThemeApp {
 
   /// A default light theme.
   static ThemeData light({String? fontFamily}) => ThemeData(
+
     fontFamily: fontFamily,
     tabBarTheme: TabBarTheme(labelColor: _lightColorScheme.onSurface),
     brightness: Brightness.light,
@@ -93,7 +94,8 @@ class ThemeApp {
     canvasColor: _lightColorScheme.background,
     scaffoldBackgroundColor: _lightColorScheme.background,
     cardColor: _lightColorScheme.surface,
-    dividerColor: _lightColorScheme.onSurface.withOpacity(0.12),
+    dividerColor: Colors.transparent,
+    //_lightColorScheme.onSurface.withOpacity(0.12),
     dialogBackgroundColor: _lightColorScheme.background,
     dialogTheme: DialogTheme(
       backgroundColor: _lightColorScheme.background,

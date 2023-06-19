@@ -60,7 +60,9 @@ class InChatScreen extends StatelessWidget {
                                       icon: SvgPicture.asset(ImageHelper.camIcon,color:ColorHelper.primaryColor)),
                                   InkWell(
                                     onTap: (){
-                                      _controller.sendMessage();
+                                      if(_controller.textController.text.isNotEmpty) {
+                                        _controller.sendMessage();
+                                      }
                                     },
                                     child: Container(
                                         width: 35.w,
@@ -191,9 +193,9 @@ class InChatScreen extends StatelessWidget {
                  padding: EdgeInsets.only(right: 10.w,top: 10.w,left: 10.w),
                  decoration:  BoxDecoration(
                    color: ColorHelper.primaryColor.withOpacity(0.8),
-                   borderRadius: BorderRadius.circular(10),
+                   borderRadius: const BorderRadius.only(bottomRight: Radius.circular(12),topLeft:Radius.circular(12),topRight: Radius.circular(12) ),
                  ),
-                 child: Text('${item.content}'))
+                 child: Text('${item.content}',style: TextStyle(color: Colors.white,fontFamily: TextHelper.satoshiMedium),))
                  :
              Container(
                clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -230,25 +232,19 @@ class InChatScreen extends StatelessWidget {
          children: [
            ConstrainedBox(constraints: BoxConstraints(
                maxWidth: 230.w,
-               minHeight: 40.h
+               minHeight: 30.h
            ),
              child: Container(
                  margin: EdgeInsets.only(right: 10.w,top: 0.w),
                  padding: EdgeInsets.only(right: 10.w,top: 10.w,left: 10.w),
-                 decoration:  BoxDecoration(
-                   gradient: const LinearGradient(colors: [
-                     Color.fromARGB(255, 176, 106, 231),
-                     Color.fromARGB(255, 166, 112, 231),
-                     Color.fromARGB(255, 131, 123, 231),
-                     Color.fromARGB(255, 184, 132, 231),
-                   ],
-                     transform: GradientRotation(90),
-                   ),
-                   borderRadius: BorderRadius.circular(10),
+                 decoration:   BoxDecoration(
+                   color: Colors.grey.shade400,
+
+                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(18),topLeft:Radius.circular(12),topRight: Radius.circular(12) ),
                  ),
                  child: item.type=="text"
                      ?
-                 Text('${item.content}')
+                 Text('${item.content}',style: TextStyle(color: Colors.white,fontFamily: TextHelper.satoshiMedium),)
                      :
                  ConstrainedBox(
                    constraints: BoxConstraints(
@@ -256,6 +252,7 @@ class InChatScreen extends StatelessWidget {
                    ),
                    child: InkWell(
                        onTap: (){
+                         Get.toNamed(Routes.photoViewRoutes,parameters: {"url":item.content??""});
 
                        },
                        child: CachedNetworkImage(imageUrl: '${item.content}')),

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:darak_project/model/booking_review.dart';
 import 'package:darak_project/model/sub_category.dart';
 import 'package:darak_project/services/common/user_store.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ class WorkerHomeController extends GetxController{
   RxList<QueryDocumentSnapshot<SubCategory>> serviceList = <QueryDocumentSnapshot<SubCategory>> [].obs;
   final token = UserStore.t0.token;
   final db = FirebaseFirestore.instance;
-  //final RefreshController refreshController =RefreshController(initialRefresh: true);
 
   @override
   void onReady(){
@@ -16,13 +14,6 @@ class WorkerHomeController extends GetxController{
     getUserName();
   }
 
-  // void onLoading(){
-  //   asyncLoadAllData().then((_){
-  //     //refreshController.loadComplete();
-  //   }).catchError((_){
-  //     //refreshController.loadFailed();
-  //   });
-  // }
 
   bool isLoading = false;
   Future<void> asyncLoadAllData() async{

@@ -7,7 +7,6 @@ import 'package:darak_project/module/customer/customer_auth/customer_sign_up/sig
 import 'package:darak_project/module/customer/customer_auth/customer_sign_up/sign_up_customer_screen.dart';
 import 'package:darak_project/module/worker/worker_sign_in/sign_in_worker_controller.dart';
 import 'package:darak_project/module/worker/worker_sign_up/sign_up_worker_controller.dart';
-import 'package:darak_project/module/worker/worker_sign_up/sign_up_worker_screen.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:darak_project/widgets/textformfield.dart';
 import 'package:flutter/gestures.dart';
@@ -85,6 +84,7 @@ class SignInScreen extends StatelessWidget {
                SizedBox(height: 5.h,),
                Expanded(
                  child: TabBarView(
+                   physics: const BouncingScrollPhysics(),
                      children: [
                        _buildMainBodyCustomer(context),
                         _buildMainBodyWorker(context),
@@ -122,7 +122,7 @@ class SignInScreen extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 10.h,),
               TextFormFieldCustom(
-                prefixIcon: Icon(Icons.email,color: ColorHelper.warmGrey,),
+                prefixIcon: const Icon(Icons.email),
                 label: TextHelper.hintEmail,
                 // check tha validation
                 validator: (val) {
@@ -137,14 +137,15 @@ class SignInScreen extends StatelessWidget {
               ),
                SizedBox(height: 10.h),
               Obx(() => TextFormFieldCustom(
+                prefixIcon: const Icon(Icons.lock),
                 label: TextHelper.hintPass,
                 suffixIcon: InkWell(
                   onTap: (){
                     controller.changeVisiability();
                   },
-                  child: controller.isvisiable.value ? const Icon(Icons.visibility):const Icon(Icons.visibility_off),
+                  child: controller.isvisiable.value ? const Icon(Icons.visibility_off):const Icon(Icons.visibility),
                 ),
-                obscureText: controller.isvisiable.value,
+                obscureText: !controller.isvisiable.value,
                 maxline: 1,
                 textEditingController: controller.password,
                 keyboardType: TextInputType.text,
@@ -239,10 +240,10 @@ class SignInScreen extends StatelessWidget {
               ),
               Center(
                 child: Text.rich(TextSpan(
-                  text: "Don't have an account? ",
+                  text: "Don't have an account ? ",
                   style: TextStyle(
                       color: ColorHelper.offWhiteColor,
-                      fontFamily: TextHelper.satoshiRegular,
+                      fontFamily: TextHelper.satoshiLight,
                       fontSize: 16),
                   children: <TextSpan>[
                     TextSpan(
@@ -250,6 +251,7 @@ class SignInScreen extends StatelessWidget {
                         style: buildTextStyleBtn(
                             color: ColorHelper.blackColor,
                             line: TextDecoration.underline),
+
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             Get.to(SignUpScreen());
@@ -271,7 +273,7 @@ class SignInScreen extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 10.h,),
               TextFormFieldCustom(
-                prefixIcon: Icon(Icons.email,color: ColorHelper.warmGrey,),
+                prefixIcon: const Icon(Icons.email,),
                 label: TextHelper.hintEmail,
                 // check tha validation
                 validator: (val) {
@@ -286,14 +288,15 @@ class SignInScreen extends StatelessWidget {
               ),
                SizedBox(height: 10.h),
               Obx(() => TextFormFieldCustom(
+                prefixIcon: const Icon(Icons.lock),
                 label: TextHelper.hintPass,
                 suffixIcon: InkWell(
                   onTap: (){
                     controllerWo.changeVisiability();
                   },
-                  child: controllerWo.isvisiable.value ? const Icon(Icons.visibility):const Icon(Icons.visibility_off),
+                  child: controllerWo.isvisiable.value ? const Icon(Icons.visibility_off):const Icon(Icons.visibility),
                 ),
-                obscureText: controllerWo.isvisiable.value,
+                obscureText: !controllerWo.isvisiable.value,
                 maxline: 1,
                 textEditingController: controllerWo.password,
                 keyboardType: TextInputType.text,
@@ -388,10 +391,10 @@ class SignInScreen extends StatelessWidget {
               ),
               Center(
                 child: Text.rich(TextSpan(
-                  text: "Don't have an account? ",
+                  text: "Don't have an account ? ",
                   style: TextStyle(
                       color: ColorHelper.offWhiteColor,
-                      fontFamily: TextHelper.satoshiRegular,
+                      fontFamily: TextHelper.satoshiLight,
                       fontSize: 16),
                   children: <TextSpan>[
                     TextSpan(

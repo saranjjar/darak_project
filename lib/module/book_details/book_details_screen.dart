@@ -146,16 +146,9 @@ class BookDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: D_MaterialButton(
                         onPressed: () {
-                            if(
-                                _controller.finalPrice.value.toString().isNotEmpty
-                                &&_controller.selectedTime.value.toString().isNotEmpty
-                                &&_controller.selectedDate.value.toString().isNotEmpty
-                                &&_controller.workingHours.value.toString().isNotEmpty
-                            ) {
-                              Get.toNamed(Routes.locationRoutes);
-                            }else{
-                              _controller.showDefaultDialog();
-                            }
+
+                            Get.toNamed(Routes.locationRoutes);
+
                         }, child: Text('Continue',style: buildTextStyleBtn(),)
 
                     ),

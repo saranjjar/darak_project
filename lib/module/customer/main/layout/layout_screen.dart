@@ -17,16 +17,17 @@ class LayoutScreen extends StatelessWidget {
             body: controller.screens[controller.currantScreenIndex],
             bottomNavigationBar:
                 BottomNavigationBar(
+                  elevation: 1,
                   type: BottomNavigationBarType.fixed,
                   iconSize: 40,
                   items: controller.bottomNavIcon,
                   unselectedLabelStyle: TextStyle(
                     fontSize: 12,
-                    fontFamily: TextHelper.satoshiRegular
+                    fontFamily: TextHelper.satoshiMedium
                   ),
                   selectedLabelStyle: TextStyle(
                     fontSize: 12,
-                    fontFamily: TextHelper.satoshiRegular
+                    fontFamily: TextHelper.satoshiMedium
                   ),
                   onTap: (value) =>
                   controller.changeBottomNavigationBar(value, context),

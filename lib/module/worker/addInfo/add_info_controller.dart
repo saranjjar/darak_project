@@ -74,7 +74,8 @@ class AddInfoController extends GetxController{
     final pickedFile = await _picker.getImage(source:image);
     if(pickedFile!=null){
       photo = File(pickedFile.path);
-      uploadFile();
+     await uploadFile();
+     print('Done upload');
     }else{
       if (kDebugMode) {
         print("No image selected");
@@ -101,7 +102,15 @@ class AddInfoController extends GetxController{
             break;
           case TaskState.success:
              imgUrl = await getImageUrl(fileName);
+             print('All Done!!!!!!!!!!1');
             update();
+            break;
+          case TaskState.canceled:
+            // TODO: Handle this case.
+            break;
+          case TaskState.error:
+            // TODO: Handle this case.
+            break;
         }
       });
     }catch(error){

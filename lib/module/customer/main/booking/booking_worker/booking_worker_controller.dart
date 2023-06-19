@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:darak_project/model/booking_review.dart';
 import 'package:darak_project/services/common/user_store.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
-class BookingController extends GetxController{
-  RxList<QueryDocumentSnapshot<BookingReview>> bookingsList = <QueryDocumentSnapshot<BookingReview>> [].obs;
-  RxList<QueryDocumentSnapshot<BookingReview>> upComingsList = <QueryDocumentSnapshot<BookingReview>> [].obs;
+class BookingWorkerController extends GetxController{
+  RxList<QueryDocumentSnapshot<BookingReview>> bookingList = <QueryDocumentSnapshot<BookingReview>> [].obs;
+  RxList<QueryDocumentSnapshot<BookingReview>> upComingList = <QueryDocumentSnapshot<BookingReview>> [].obs;
   RxList<QueryDocumentSnapshot<BookingReview>> completedList = <QueryDocumentSnapshot<BookingReview>> [].obs;
-
   final token = UserStore.t0.token;
   final db = FirebaseFirestore.instance;
 
@@ -19,7 +19,31 @@ class BookingController extends GetxController{
   }
 
 
-  //upcoming
+  bool isLoading = false;
+  Future<void> asyncLoadPendingBook() async{
+    try{
+      isLoading = true;
+      update();
+      var fromBooking = await db.collection("booking").withConverter(
+          fromFirestore: BookingReview.fromFirestore,
+          toFirestore: (BookingReview book,options)=>book.toFirestore()).where(
+          "toUid",isEqualTo:token
+      ).where('status',isEqualTo: 'pending').get();
+
+      if(fromBooking.docs.isNotEmpty){
+        bookingList.assignAll(fromBooking.docs);
+      }
+      isLoading = false;
+      update();
+    }catch(error){
+      if (kDebugMode) {
+        print(error.toString());
+      }
+      isLoading = false;
+      update();
+    }
+  }
+
   bool isLoadingUp = false;
   Future<void> asyncLoadUpComing() async{
     try{
@@ -28,12 +52,12 @@ class BookingController extends GetxController{
       var fromBooking = await db.collection("booking").withConverter(
           fromFirestore: BookingReview.fromFirestore,
           toFirestore: (BookingReview book,options)=>book.toFirestore()).where(
-          "uid",isEqualTo:token
+          "toUid",isEqualTo:token
       ).where('status',isEqualTo: 'upcoming').get();
 
       if(fromBooking.docs.isNotEmpty){
-        upComingsList.assignAll(fromBooking.docs);
-        upComingsList.sort((a, b) {
+        upComingList.assignAll(fromBooking.docs);
+        upComingList.sort((a, b) {
           var dateA = a.data().date;
           var dateB = b.data().date;
           return dateA!.compareTo(dateB!);
@@ -45,31 +69,6 @@ class BookingController extends GetxController{
     }catch(error){
       print(error.toString());
       isLoadingUp = false;
-      update();
-    }
-  }
-
-  //pending
-  bool isLoading = false;
-  Future<void> asyncLoadPendingBook() async{
-    try{
-      isLoading = true;
-      update();
-      var fromBooking = await db.collection("booking").withConverter(
-          fromFirestore: BookingReview.fromFirestore,
-          toFirestore: (BookingReview book,options)=>book.toFirestore()).where(
-          "uid",isEqualTo:token
-      ).where('status',isEqualTo: 'pending').get();
-
-      if(fromBooking.docs.isNotEmpty){
-        bookingsList.assignAll(fromBooking.docs);
-      }
-
-      isLoading = false;
-      update();
-    }catch(error){
-      print(error.toString());
-      isLoading = false;
       update();
     }
   }
@@ -102,4 +101,18 @@ class BookingController extends GetxController{
       update();
     }
   }
+
+
+
+  Future<void> updateBookingStatus({required String idDoc,required String valueSt}) async {
+     try{ db.collection("booking").doc(idDoc).update({'status': valueSt});
+      print('Status updated successfully');
+    await asyncLoadPendingBook();
+    }
+        catch(error) {
+      print('Failed to update status: $error');
+    }
+
+  }
+
 }

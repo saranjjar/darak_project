@@ -56,11 +56,11 @@ class BookDetailsController extends GetxController{
     print(StorageService.to.getString(Constants.STRORAGE_WORKING_HOURS));
   }
 
-  RxString? price =''.obs;
+  RxString price =''.obs;
 
   RxDouble finalPrice=0.0.obs;
   double calculatePrice(){
-    finalPrice.value = double.parse(price!.value) * workingHours.value;
+    finalPrice.value = double.parse(price.value) * workingHours.value;
     StorageService.to.setString(Constants.STRORAGE_PRICE, finalPrice.toString());
 
     return finalPrice.value;
@@ -70,7 +70,7 @@ class BookDetailsController extends GetxController{
     // TODO: implement onInit
     super.onInit();
     var data = Get.parameters;
-    price?.value = data['price']!;
+    price.value = data['price']!;
   }
 
   void showDefaultDialog() {

@@ -7,6 +7,7 @@ import 'package:darak_project/services/common/config.dart';
 import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:darak_project/services/common/user_store.dart';
 import 'package:darak_project/theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,22 +16,24 @@ import 'package:get/get.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Get.putAsync<StorageService>(()=>StorageService().init());
-  Get.put<SplashController>(SplashController());
   Get.put<ConfigStore>(ConfigStore());
   Get.put<UserStore>(UserStore());
   // if(kIsWeb){
      await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
      );
-  // late String home;
-  //
-  // if(!UserStore.t0.hasToken){
-  //   home = Routes.signInRoute;
-  //
-  // }else{
-  //
-  //   home=Routes.layoutRoute;
-  // }
+  late String home;
+  if(!ConfigStore.to.isFirstOpen){
+    home = Routes.onBoardRoute;
+  }else {
+   home = Routes.splashRoute;
+    // if(!UserStore.t0.hasToken){
+    //   home = Routes.signInRoute;
+    //
+    // }else{
+    //   home=Routes.layoutRoute;
+    // }
+  }
   //       options: FirebaseOptions(
   //           apiKey: Constants.apiKey,
   //           appId: Constants.appId,
@@ -41,13 +44,13 @@ void main() async {
   // }else{
   //   await Firebase.initializeApp();
   // }
-  runApp( MyApp(/*home: home*/));
+  runApp( MyApp(home: home));
 }
 
 class MyApp extends StatelessWidget {
   late String home;
 
-  MyApp({super.key,/*required this.home*/});
+  MyApp({super.key,required this.home});
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -64,6 +67,7 @@ class MyApp extends StatelessWidget {
             initialBinding: Binding(),
             getPages: appRoutes,
             //initialRoute: Routes.addInfoRoute,
+            initialRoute: home,
           )
           ;
         });

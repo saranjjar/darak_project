@@ -1,9 +1,8 @@
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
+import 'package:darak_project/module/customer/main/worker_home/add_service/add_service_screen.dart';
 import 'package:darak_project/module/customer/main/worker_home/worker_home_controller.dart';
-import 'package:darak_project/module/worker/addInfo/add_info_screen.dart';
-import 'package:darak_project/services/common/user_store.dart';
 import 'package:darak_project/widgets/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,69 +15,96 @@ class WorkerHomeScreen extends StatelessWidget {
     
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: GetBuilder<WorkerHomeController>(
-          builder: (controller)=>
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Row(children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hi, ${controller.userName} 👋',
-                          style:
-                          _buildTextStyle(),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Text(
-                          'Welcome back HandyHome',
-                          style: TextStyle(
-                              fontFamily: TextHelper.satoshiRegular,
-                              fontSize: 14,
-                              color: ColorHelper.offWhiteColor),
-                        ),
-                      ],
-                    ),
-                  ]),
-                  SizedBox(height: 30.h,),
-                  Row(
-                    children: [
-                      Text(
-                        'My Services',
-                        style:
-                        _buildTextStyle(),
-                      ),
-                      Spacer(),
-                      D_TextButton(onPressed: (){}, text: 'Edit',line: TextDecoration.none,color: ColorHelper.primaryColor,)
-                    ],
-                  ),
-                  SizedBox(height: 10.h,),
-                  controller.isLoading
-                      ?
-                   const Center(child: CircularProgressIndicator())
-                      :
-                  getService(),
-                ],
-              ),
+    return
+       GetBuilder<WorkerHomeController>(
+         builder: (controller)=>
+         controller.isLoading
+             ?
+           const Center(child: CircularProgressIndicator())
+             :
+             Padding(
+               padding: const EdgeInsets.all(20.0),
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   SizedBox(
+                     height: 10.h,
+                   ),
+                   Row(
+                       children: [
+                     Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Text(
+                           'Hi, ${controller.userName} 👋',
+                           style:
+                           _buildTextStyle(font: 18),
+                         ),
+                         SizedBox(
+                           height: 5.h,
+                         ),
+                         Text(
+                           'Welcome back HandyHome',
+                           style: TextStyle(
+                               fontFamily: TextHelper.satoshiRegular,
+                               fontSize: 14,
+                               color: ColorHelper.offWhiteColor),
+                         ),
+                       ],
+                     ),
+                     const Spacer(),
+                     IconButton(
+                             onPressed: (){
 
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add,color: Colors.white,),
-        onPressed: (){
-            Get.to(AddInfoScreen());
-        },
-      ),
-    );
+                             }, icon: Container(
+                             decoration: BoxDecoration(
+                                 shape: BoxShape.circle,
+                                 border:Border.all(
+                                     color: ColorHelper.offWhiteColor
+                                 )
+                             ),
+                             child: const Padding(
+                               padding: EdgeInsets.all(2.0),
+                               child: Icon(Icons.notifications_none_outlined,color: ColorHelper.offWhiteColor,),
+                             )))
+
+                       ]),
+                   SizedBox(height: 15.h,),
+                   Text(
+                     'My Progress',
+                     style:
+                     _buildTextStyle(),
+                   ),
+                   SizedBox(height: 15.h,),
+                   Container(
+                     width: double.infinity,
+                     height: 130.h,
+                     decoration: BoxDecoration(
+                       color: ColorHelper.primaryColor,
+                       borderRadius: BorderRadius.circular(12)
+                     ),
+                   ),
+                   Row(
+                     children: [
+                       Text(
+                         'My Services',
+                         style:
+                         _buildTextStyle(),
+                       ),
+                       const Spacer(),
+                       D_TextButton(onPressed: (){
+                         Get.to(()=>AddServiceScreen());
+                       }, text: 'See All',line: TextDecoration.none,color: ColorHelper.greyColor,)
+                     ],
+                   ),
+                   SizedBox(height: 10.h,),
+
+                   getService(),
+                 ],
+               ),
+             ),
+
+       );
   }
 
    RefreshIndicator getService(){
@@ -86,7 +112,16 @@ class WorkerHomeScreen extends StatelessWidget {
          onRefresh: _controller.asyncLoadAllData,
          child: _controller.serviceList.isEmpty
              ?
-         const Text('There is No any Request')
+          Center(child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                SvgPicture.asset(ImageHelper.emptyBookIcon),
+                SizedBox(height: 16.h,),
+                Text('Add your Services !',style: TextStyle(fontFamily: TextHelper.satoshiLight,fontSize: 18),),
+              ],
+            ),
+          ))
              :
          _buildMainBody(_controller)
      );
@@ -128,8 +163,7 @@ class WorkerHomeScreen extends StatelessWidget {
         );
   }
 
-  TextStyle _buildTextStyle({double? font}) => TextStyle(fontFamily: TextHelper.satoshiBold, fontSize:font?? 18);
-
+  TextStyle _buildTextStyle({double? font}) => TextStyle(fontFamily: TextHelper.satoshiBold, fontSize:font?? 16);
 
 }
 /*

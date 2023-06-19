@@ -83,6 +83,7 @@ class SignUpScreen extends StatelessWidget {
                  SizedBox(height: 10.h,),
                  Expanded(
                    child: TabBarView(
+                     physics: const BouncingScrollPhysics(),
                        children: [
                          _buildMainBodyCustomer(context),
                          _buildMainBodyWorker(context),
@@ -108,7 +109,7 @@ class SignUpScreen extends StatelessWidget {
              children: <Widget>[
                SizedBox(height: 10.h,),
                TextFormFieldCustom(
-                 prefixIcon: Icon(Icons.person,color: ColorHelper.warmGrey,),
+                 prefixIcon: const Icon(Icons.person,),
                  label: 'User Name',
                  // check tha validation
                  validator: (val) {
@@ -119,7 +120,7 @@ class SignUpScreen extends StatelessWidget {
                ),
                SizedBox(height: 10.h),
                TextFormFieldCustom(
-                 prefixIcon: Icon(Icons.email,color: ColorHelper.warmGrey,),
+                 prefixIcon: const Icon(Icons.email),
                  label: TextHelper.hintEmail,
                  // check tha validation
                  validator: (val) {
@@ -134,7 +135,7 @@ class SignUpScreen extends StatelessWidget {
                ),
                SizedBox(height: 10.h),
                TextFormFieldCustom(
-                 prefixIcon: Icon(Icons.phone,color: ColorHelper.warmGrey,),
+                 prefixIcon: const Icon(Icons.phone),
                  label: 'Phone',
                  // check tha validation
                  validator: (val) {
@@ -145,14 +146,15 @@ class SignUpScreen extends StatelessWidget {
                ),
                SizedBox(height: 10.h),
                Obx(() => TextFormFieldCustom(
+                 prefixIcon: const Icon(Icons.lock),
                  label: TextHelper.hintPass,
                  suffixIcon: InkWell(
                    onTap: (){
                      controller.changeVisiability();
                    },
-                   child: controller.isvisiable.value ? const Icon(Icons.visibility):const Icon(Icons.visibility_off),
+                   child: controller.isvisiable.value ? const Icon(Icons.visibility_off):const Icon(Icons.visibility),
                  ),
-                 obscureText: controller.isvisiable.value,
+                 obscureText: !controller.isvisiable.value,
                  maxline: 1,
                  textEditingController: controller.password,
                  keyboardType: TextInputType.text,
@@ -231,10 +233,10 @@ class SignUpScreen extends StatelessWidget {
                ),
                Center(
                  child: Text.rich(TextSpan(
-                   text: "already have an account? ",
+                   text: "already have an account ? ",
                    style: TextStyle(
                        color: ColorHelper.offWhiteColor,
-                       fontFamily: TextHelper.satoshiRegular,
+                       fontFamily: TextHelper.satoshiLight,
                        fontSize: 16),
                    children: <TextSpan>[
                      TextSpan(
@@ -263,7 +265,7 @@ class SignUpScreen extends StatelessWidget {
              children: <Widget>[
                SizedBox(height: 10.h),
                TextFormFieldCustom(
-                 prefixIcon: Icon(Icons.person,color: ColorHelper.warmGrey,),
+                 prefixIcon: Icon(Icons.person),
                  label: 'User Name',
                  // check tha validation
                  validator: (val) {
@@ -275,7 +277,7 @@ class SignUpScreen extends StatelessWidget {
                ),
                SizedBox(height: 10.h,),
                TextFormFieldCustom(
-                 prefixIcon: Icon(Icons.email,color: ColorHelper.warmGrey,),
+                 prefixIcon: Icon(Icons.email),
                  label: TextHelper.hintEmail,
                  // check tha validation
                  validator: (val) {
@@ -290,7 +292,7 @@ class SignUpScreen extends StatelessWidget {
                ),
                SizedBox(height: 10.h),
                TextFormFieldCustom(
-                 prefixIcon: Icon(Icons.phone,color: ColorHelper.warmGrey,),
+                 prefixIcon: Icon(Icons.phone),
                  label: 'Phone',
                  // check tha validation
                  validator: (val) {
@@ -307,9 +309,9 @@ class SignUpScreen extends StatelessWidget {
                    onTap: (){
                      controllerWo.changeVisiability();
                    },
-                   child: controllerWo.isvisiable.value ? const Icon(Icons.visibility):const Icon(Icons.visibility_off),
+                   child: controllerWo.isvisiable.value ? const Icon(Icons.visibility_off):const Icon(Icons.visibility),
                  ),
-                 obscureText: controllerWo.isvisiable.value,
+                 obscureText: !controllerWo.isvisiable.value,
                  maxline: 1,
                  textEditingController: controllerWo.password,
                  keyboardType: TextInputType.text,
@@ -388,10 +390,10 @@ class SignUpScreen extends StatelessWidget {
                ),
                Center(
                  child: Text.rich(TextSpan(
-                   text: "already have an account? ",
+                   text: "already have an account ? ",
                    style: TextStyle(
                        color: ColorHelper.offWhiteColor,
-                       fontFamily: TextHelper.satoshiRegular,
+                       fontFamily: TextHelper.satoshiLight,
                        fontSize: 16),
                    children: <TextSpan>[
                      TextSpan(
@@ -401,7 +403,7 @@ class SignUpScreen extends StatelessWidget {
                              line: TextDecoration.underline),
                          recognizer: TapGestureRecognizer()
                            ..onTap = () {
-                             Get.to(SignInScreen());
+                             Get.to(()=>SignInScreen());
                            }),
                    ],
                  )),

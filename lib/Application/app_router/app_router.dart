@@ -24,6 +24,7 @@ import '../../module/customer/main/chat/in_chat/in_chat_screen.dart';
 import '../../module/customer/main/home/categories/categories_screen.dart';
 import '../../module/customer/main/home/categories/profile_category/profile_category_screen.dart';
 import '../../module/customer/main/layout/layout_screen.dart';
+import '../../module/customer/main/worker_home/add_service/get_sub_category/get_sub_category_screen.dart';
 import '../../module/customer/photo_view/photo_view_screen.dart';
 
 class Routes {
@@ -46,6 +47,7 @@ class Routes {
    static const String paymentRoutes = '/payment';
    static const String bookingRevRoutes = '/booking';
    static const String adsRoutes = '/ads';
+   static const String getSubRoutes = '/getSub';
     //worker
    static const String signWoInRoute = '/signInWo';
    static const String signUpWoRoute = '/signUpWo';
@@ -59,15 +61,15 @@ List<GetPage<dynamic>> appRoutes = [
 
   GetPage(
     name: Routes.onBoardRoute,
-    page: () => const OnBoardingScreen(),
-    middlewares: [
-     RouteWelcomeMW(priority: 1),
-    ]
+    page: () =>  OnBoardingScreen(),
+    //arguments: RouteWelcomeMW(priority: 1),
+    // middlewares: [
+    //  RouteWelcomeMW(priority: 1),
+    // ]
   ),
   GetPage(
     name: Routes.splashRoute,
     page: () => const SplashScreen(),
-
   ), GetPage(
     name: Routes.signInRoute,
     page: () => SignInScreen(),
@@ -136,5 +138,8 @@ List<GetPage<dynamic>> appRoutes = [
    ),GetPage(
       name: Routes.adsRoutes,
       page: () =>  AdsScreen(),
+   ),GetPage(
+      name: Routes.getSubRoutes,
+      page: () => GetSubCategoryScreen(),
    ),
 ];

@@ -47,7 +47,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                   SizedBox(height: 15.h,),
                   _buildRadio(
                       title: 'Master Card',
-                      icon: ImageHelper.paypalIcon,
+                      icon: ImageHelper.masterIcon,
                       onChanged: (value){
                         setState(() {
                           _character = value;

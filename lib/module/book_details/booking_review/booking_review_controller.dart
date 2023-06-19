@@ -53,6 +53,7 @@ class BookingReviewController extends GetxController {
           workingHours: workingHour,
           price: price,
           location: location,
+
       );
           await db
               .collection('booking')

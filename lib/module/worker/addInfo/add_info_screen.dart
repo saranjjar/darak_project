@@ -232,12 +232,9 @@ class AddInfoScreen extends StatelessWidget {
                                 //   showSnackbar(context, Colors.grey.shade600, 'you must enter your Category');
                                 //   return;
                                 // }
-                                if(
-                                _formKey.currentState!.validate()
-                                    &&
-                                    (controller.serviceName!='Choose service'||controller.imgUrl!='')) {
+
                                   controller.addInfoWorker(subcategoryID: controller.serviceName);
-                                }
+
 
                               },
                               child:  Text('Add Now',

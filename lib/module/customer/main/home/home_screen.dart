@@ -41,7 +41,11 @@ class HomeScreen extends StatelessWidget {
     @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
-        builder: (controller)=> _buildMainBody(controller)
+        builder: (controller)=> _controller.isLoading
+        ?
+        const Center(child: CircularProgressIndicator())
+        :
+        _buildMainBody(controller)
     );
   }
 
@@ -130,9 +134,9 @@ class HomeScreen extends StatelessWidget {
                          controller: pageViewController,
                           itemBuilder: (context, index) => buildItem(model[index])),
                     ),
-                    // SizedBox(
-                    //   height: 5.h,
-                    // ),
+                    SizedBox(
+                        height:5.h
+                    ),
                     SmoothPageIndicator(
                       controller: pageViewController,
                       count: 3,
@@ -160,10 +164,7 @@ class HomeScreen extends StatelessWidget {
                   mainAxisSpacing: 12,
                   children: List.generate(
                       controller.categoryList.length,
-                          (index) => _controller.isLoading
-                              ?
-                              shimmer()
-                              :
+                          (index) =>
                           InkWell(
                             onTap:(){
                               _controllerCategory.getSubcategoriesInCategory(controller.categoryList[index].id);

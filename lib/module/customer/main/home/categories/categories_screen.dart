@@ -75,7 +75,8 @@ class CategoriesScreen extends StatelessWidget {
         'price': item.price!,
         'location': item.location!,
         'photo': item.photo!,
-
+        'subService':item.subService!,
+        'service':item.service!
        });
      },
      child: Padding(

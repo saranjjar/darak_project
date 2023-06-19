@@ -8,6 +8,8 @@ class ColorHelper {
   static const Color blackColor = Color(0xFF1E1E1E);
   static const Color fillFFColor = Color(0xFFF9FAFB);
   static const Color hintColor = Color(0xFFB6BBC4);
+  static const Color greenColor = Color(0xFF41DA6A);
+  static const Color redColor = Color(0xFFFF0000);
 
   static const Color greyColor = Color(0xFF6B7280);
   static const Color divColor = Color(0xFFF4F4F4);
