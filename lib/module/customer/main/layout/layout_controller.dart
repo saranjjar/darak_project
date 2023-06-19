@@ -1,6 +1,7 @@
 import 'package:darak_project/const.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/module/customer/main/booking/booking_screen.dart';
+import 'package:darak_project/module/customer/main/booking/booking_worker/booking_worker_screen.dart';
 import 'package:darak_project/module/customer/main/chat/chat_history/chat_history_screen.dart';
 import 'package:darak_project/module/customer/main/home/home_screen.dart';
 import 'package:darak_project/module/customer/main/settings/settings_screen.dart';
@@ -19,7 +20,11 @@ class LayoutController extends GetxController {
     else if(StorageService.to.getString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY)=='Worker')  WorkerHomeScreen()
 
     else Container(),
-     BookingScreen(),
+    if(StorageService.to.getString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY)=='CUSTOMER')
+      BookingScreen()
+    else if(StorageService.to.getString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY)=='Worker')  BookingWorkerScreen()
+
+    else Container(),
     ChatHistoryScreen(),
     SettingsScreen(),
   ];

@@ -13,13 +13,9 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes:<String> [
-      'openid'
-    ]
-);
+GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>['openid']);
 
-class SignUpController extends GetxController{
+class SignUpController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Rx<User?> user = Rx<User?>(null);
   User? users = FirebaseAuth.instance.currentUser;
@@ -27,18 +23,17 @@ class SignUpController extends GetxController{
 
   RxBool isvisiable = false.obs;
 
-  changeVisiability(){
-    isvisiable.value =! isvisiable.value;
+  changeVisiability() {
+    isvisiable.value = !isvisiable.value;
   }
-  Future<void> signInGoogle(context) async {
 
+  Future<void> signInGoogle(context) async {
     try {
       isLoading.value = true;
       update();
 
       var user = await _googleSignIn.signIn();
-      if(user!=null){
-
+      if (user != null) {
         final gAuth = await user.authentication;
         final credential = GoogleAuthProvider.credential(
           idToken: gAuth.idToken,
@@ -59,11 +54,16 @@ class SignUpController extends GetxController{
         userProfile.photoUrl = photoUrl;
         UserStore.t0.saveProfile(userProfile);
 
-        var userbase = await db.collection('users').withConverter(
-          fromFirestore: UserData.fromFirestore,
-          toFirestore: (UserData userdata,options)=>userdata.toFirestore(),).where('id', isEqualTo:id ).get();
-        if(userbase.docs.isEmpty){
-
+        var userbase = await db
+            .collection('users')
+            .withConverter(
+              fromFirestore: UserData.fromFirestore,
+              toFirestore: (UserData userdata, options) =>
+                  userdata.toFirestore(),
+            )
+            .where('id', isEqualTo: id)
+            .get();
+        if (userbase.docs.isEmpty) {
           final data = UserData(
             id: id,
             name: displayName,
@@ -73,17 +73,22 @@ class SignUpController extends GetxController{
             fcmtoken: "",
             addtime: Timestamp.now(),
           );
-          await db.collection('users').withConverter(
-            fromFirestore: UserData.fromFirestore,
-            toFirestore: (UserData userdata,options)=>userdata.toFirestore(),).add(data);
+          await db
+              .collection('users')
+              .withConverter(
+                fromFirestore: UserData.fromFirestore,
+                toFirestore: (UserData userdata, options) =>
+                    userdata.toFirestore(),
+              )
+              .add(data);
         }
 
         showSnackbar(context, Colors.green, 'Login Success');
-        await StorageService.to.setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'CUSTOMER');
-        Get.offAll(()=>LayoutScreen());
+        await StorageService.to
+            .setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'CUSTOMER');
+        Get.offAll(() => LayoutScreen());
       }
-
-    }catch(e){
+    } catch (e) {
       showSnackbar(context, Colors.red, e.toString());
       isLoading.value = false;
       if (kDebugMode) {
@@ -93,7 +98,6 @@ class SignUpController extends GetxController{
     isLoading.value = false;
     update();
   }
-
 
   void updateDetail() async {
     await users?.updateDisplayName(username.text);
@@ -105,8 +109,10 @@ class SignUpController extends GetxController{
     if (kDebugMode) {
       print(users!.displayName);
       print(users!.email);
-      print(users!.phoneNumber);    }
+      print(users!.phoneNumber);
+    }
   }
+
   //logout
   void logOut() async {
     try {
@@ -121,38 +127,41 @@ class SignUpController extends GetxController{
       Get.snackbar("Something Wrong", "$ex");
     }
   }
-   late final TextEditingController email , password, username ,phone;
 
-   RxBool isLoading = false.obs;
+  late final TextEditingController email, password, username, phone;
+
+  RxBool isLoading = false.obs;
 
   //sign up
   Future registerWithEmail(context) async {
-
     try {
       isLoading.value = true;
       update();
-      final UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-          email: email.text.trim(), password: password.text.trim());
-      if(userCredential.user!=null){
+      final UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+              email: email.text.trim(), password: password.text.trim());
+      if (userCredential.user != null) {
         final user = userCredential.user;
-
         String? displayName = username.text;
         String email = user?.email ?? "";
         String id = user?.uid ?? "";
         String photoUrl = user?.photoURL ?? "";
-
         Users userProfile = Users();
-
         userProfile.email = email;
         userProfile.accessToken = id;
         userProfile.displayName = displayName;
         userProfile.photoUrl = photoUrl;
         UserStore.t0.saveProfile(userProfile);
-
-        var userbase = await db.collection('users').withConverter(
-          fromFirestore: UserData.fromFirestore,
-          toFirestore: (UserData userdata,options)=>userdata.toFirestore(),).where('id', isEqualTo:id ).get();
-        if(userbase.docs.isEmpty){
+        var userbase = await db
+            .collection('users')
+            .withConverter(
+              fromFirestore: UserData.fromFirestore,
+              toFirestore: (UserData userdata, options) =>
+                  userdata.toFirestore(),
+            )
+            .where('id', isEqualTo: id)
+            .get();
+        if (userbase.docs.isEmpty) {
           final data = UserData(
             id: id,
             name: displayName,
@@ -162,28 +171,32 @@ class SignUpController extends GetxController{
             fcmtoken: "",
             addtime: Timestamp.now(),
           );
-          await db.collection('users').withConverter(
-            fromFirestore: UserData.fromFirestore,
-            toFirestore: (UserData userdata,options)=>userdata.toFirestore(),).add(data);
+          await db
+              .collection('users')
+              .withConverter(
+                fromFirestore: UserData.fromFirestore,
+                toFirestore: (UserData userdata, options) =>
+                    userdata.toFirestore(),
+              )
+              .add(data);
         }
         showSnackbar(context, Colors.green, 'Login Success');
-        await StorageService.to.setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'CUSTOMER');
+        await StorageService.to
+            .setString(Constants.STRORAGE_DEVICE_CUSTO_WORK_KEY, 'CUSTOMER');
         Get.offAllNamed(Routes.layoutRoute);
-      }
-      else{
+      } else {
         // User was not created successfully
         showSnackbar(context, Colors.red, "User created failed");
         isLoading.value = false;
-
       }
     } on FirebaseAuthException catch (error) {
       isLoading.value = false;
-      String message='error occurred';
+      String message = 'error occurred';
       // Handle any errors that occur during sign up
-      if(error.code=='weak-password'){
-        message='The password provided is too weak.';
-      }else if(error.code=='email-already-in-use'){
-        message='The account already exists for that email.';
+      if (error.code == 'weak-password') {
+        message = 'The password provided is too weak.';
+      } else if (error.code == 'email-already-in-use') {
+        message = 'The account already exists for that email.';
       }
       showSnackbar(context, Colors.red, message);
       return error.message;
@@ -197,11 +210,13 @@ class SignUpController extends GetxController{
     final LoginResult loginResult = await FacebookAuth.instance.login();
 
     // Create a credential from the access token
-    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
     // Once signed in, return the UserCredential
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
+
   @override
   void onInit() {
     username = TextEditingController();
@@ -211,9 +226,9 @@ class SignUpController extends GetxController{
     user.bindStream(_auth.authStateChanges());
     super.onInit();
   }
+
   @override
   void dispose() {
-
     username.dispose();
     email.dispose();
     phone.dispose();

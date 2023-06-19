@@ -13,7 +13,7 @@ class SplashController extends GetxController {
 
   Timer? _timer;
   startDelay() {
-    _timer = Timer(const Duration(seconds: 2), routeScreen);
+    _timer = Timer(const Duration(seconds: 5), routeScreen);
   }
 
   routeScreen(){

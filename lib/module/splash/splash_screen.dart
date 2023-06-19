@@ -1,7 +1,6 @@
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/module/splash/splash_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -11,7 +10,7 @@ class SplashScreen extends StatelessWidget {
     return  GetBuilder<SplashController>(builder: ((controller)=>Scaffold(
       body: Center(
         child: Image.asset(
-          ImageHelper.otp,
+          ImageHelper.logo,
         ),
       ),
     )));

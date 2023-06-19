@@ -25,12 +25,17 @@ class BookingReviewController extends GetxController {
   String date = StorageService.to.getString(Constants.STRORAGE_Date) ?? '-';
   String time = StorageService.to.getString(Constants.STRORAGE_TIME) ?? '-';
   String price = StorageService.to.getString(Constants.STRORAGE_PRICE) ?? '-';
-  String workingHour = StorageService.to.getString(Constants.STRORAGE_WORKING_HOURS) ?? '-';
+  String workingHour =
+      StorageService.to.getString(Constants.STRORAGE_WORKING_HOURS) ?? '-';
   String toUid = StorageService.to.getString(Constants.STRORAGE_TO_UID) ?? '-';
-  String worker = StorageService.to.getString(Constants.STRORAGE_WORKER_NAME)??'';
-  String serviceName = StorageService.to.getString(Constants.STRORAGE_SERVICE_NAME)??"";
-  String subServiceName = StorageService.to.getString(Constants.STRORAGE_SUB_SERVICE_NAME)??"";
-  String location = StorageService.to.getString(Constants.STRORAGE_LOCATION_WORKER)??"";
+  String worker =
+      StorageService.to.getString(Constants.STRORAGE_WORKER_NAME) ?? '';
+  String serviceName =
+      StorageService.to.getString(Constants.STRORAGE_SERVICE_NAME) ?? "";
+  String subServiceName =
+      StorageService.to.getString(Constants.STRORAGE_SUB_SERVICE_NAME) ?? "";
+  String location =
+      StorageService.to.getString(Constants.STRORAGE_LOCATION_WORKER) ?? "";
 
   String userName = '';
 
@@ -39,71 +44,89 @@ class BookingReviewController extends GetxController {
 
   Future<void> sendBookingReview() async {
     try {
-      // Create a new document in the "requests" collection
       final content = BookingReview(
-          uid: user_id,
-          toUid: toUid,
-          nameCustomer:  userName,
-          serviceName: serviceName,
-          subServiceName: subServiceName,
-          date: date,
-          time:time,
-          status: 'pending',
-          worker: worker,
-          workingHours: workingHour,
-          price: price,
-          location: location,
+        uid: user_id,
+        toUid: toUid,
+        nameCustomer: userName,
+        serviceName: serviceName,
+        subServiceName: subServiceName,
+        date: date,
+        time: time,
+        status: 'pending',
+        worker: worker,
+        workingHours: workingHour,
+        price: price,
+        location: location,
       );
-          await db
-              .collection('booking')
-              .withConverter(
+      await db
+          .collection('booking')
+          .withConverter(
               fromFirestore: BookingReview.fromFirestore,
               toFirestore: (BookingReview bookingReview, options) =>
                   bookingReview.toFirestore())
-              .add(content)
-              .then((DocumentReference doc) {
-            Get.focusScope?.unfocus();
-          });
-    }catch(e){
+          .add(content)
+          .then((DocumentReference doc) {
+        Get.focusScope?.unfocus();
+      });
+    } catch (e) {
       print(e.toString());
-      isLoading.value=false;
-
-    }
       isLoading.value = false;
-
+    }
+    isLoading.value = false;
   }
 
   void showDefaultDialog() {
     Get.defaultDialog(
       barrierDismissible: false,
       title: "",
-      titleStyle: TextStyle(fontFamily: TextHelper.satoshiBold,fontSize: 18),
-      content:  Padding(
+      titleStyle: TextStyle(fontFamily: TextHelper.satoshiBold, fontSize: 18),
+      content: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            SvgPicture.asset(ImageHelper.successIcon,height: 50,width: 50,),
+            SvgPicture.asset(
+              ImageHelper.successIcon,
+              height: 50,
+              width: 50,
+            ),
             Column(
               children: [
-                Text("Successful",
-                  style: TextStyle(fontFamily: TextHelper.satoshiBold,fontSize: 16,color: ColorHelper.green1),textAlign: TextAlign.center,),
-               SizedBox(height: 2.h,),
-                Text("You have a successfully payment and book the services.",
-                  style: TextStyle(fontFamily: TextHelper.satoshiMedium,fontSize: 16),textAlign: TextAlign.center,),
+                Text(
+                  "Successful",
+                  style: TextStyle(
+                      fontFamily: TextHelper.satoshiBold,
+                      fontSize: 16,
+                      color: ColorHelper.green1),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Text(
+                  "You have a successfully payment and book the services.",
+                  style: TextStyle(
+                      fontFamily: TextHelper.satoshiMedium, fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
           ],
         ),
       ),
-      confirm: D_MaterialButton(onPressed: (){
-        sendBookingReview();
-        removeCashedData();
-        Get.offAllNamed(Routes.layoutRoute);
-      }, child: Text('Done',style: buildTextStyleBtn(),)),
-
+      confirm: D_MaterialButton(
+          onPressed: () {
+            sendBookingReview();
+            removeCashedData();
+            Get.offAllNamed(Routes.layoutRoute);
+          },
+          child: Text(
+            'Done',
+            style: buildTextStyleBtn(),
+          )),
     );
   }
-  removeCashedData(){
+
+  removeCashedData() {
     StorageService.to.remove(Constants.STRORAGE_WORKER_NAME);
     StorageService.to.remove(Constants.STRORAGE_SERVICE_NAME);
     StorageService.to.remove(Constants.STRORAGE_SUB_SERVICE_NAME);
@@ -115,8 +138,8 @@ class BookingReviewController extends GetxController {
     StorageService.to.remove(Constants.STRORAGE_LOCATION_WORKER);
 
     StorageService.to.remove(Constants.STRORAGE_NAME_USER);
-
   }
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -130,33 +153,22 @@ class BookingReviewController extends GetxController {
 
   final token = UserStore.t0.token;
 
-
-  getUserName()async{
-    final userQuerySnapshot  = await FirebaseFirestore.instance
-        .collection('users').where('id',isEqualTo: token)
+  getUserName() async {
+    final userQuerySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: token)
         .get();
     if (userQuerySnapshot.docs.isNotEmpty) {
       final userDocument = userQuerySnapshot.docs.first;
       userName = userDocument['name'];
-     await StorageService.to.setString(Constants.STRORAGE_NAME_USER, userName);
+      await StorageService.to.setString(Constants.STRORAGE_NAME_USER, userName);
 
       print('User Name: $userName');
       update();
       // Update your state or perform further operations with the user name
     }
   }
-
 }
-
-
-
-
-
-
-
-
-
-
 
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:darak_project/Application/app_router/app_router.dart';

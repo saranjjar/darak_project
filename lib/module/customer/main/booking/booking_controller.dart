@@ -7,20 +7,12 @@ class BookingController extends GetxController{
   RxList<QueryDocumentSnapshot<BookingReview>> bookingList = <QueryDocumentSnapshot<BookingReview>> [].obs;
   final token = UserStore.t0.token;
   final db = FirebaseFirestore.instance;
-  //final RefreshController refreshController =RefreshController(initialRefresh: true);
 
   @override
   void onReady(){
     asyncLoadPendingBook();
   }
 
-  // void onLoading(){
-  //   asyncLoadAllData().then((_){
-  //     //refreshController.loadComplete();
-  //   }).catchError((_){
-  //     //refreshController.loadFailed();
-  //   });
-  // }
 
   bool isLoading = false;
   Future<void> asyncLoadPendingBook() async{
@@ -45,14 +37,4 @@ class BookingController extends GetxController{
       update();
     }
   }
-  // getFcmToken() async{
-  //   final fcmToken = await FirebaseMessaging.instance.getToken();
-  //   if(fcmToken!=null){
-  //     var user = await db.collection("users").where("id",isEqualTo: token).get();
-  //     if(user.docs.isNotEmpty){
-  //       var docId = user.docs.first.id;
-  //       await db.collection("users").doc(docId).update({"fcmtoken": fcmToken});
-  //     }
-  //   }
-  // }
 }

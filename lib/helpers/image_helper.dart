@@ -1,4 +1,4 @@
-class ImageHelper{
+class ImageHelper {
   static String pathImg = 'assets/image/';
   static String cleanImg = '${pathImg}clean_girl.svg';
   static String clean2Img = '${pathImg}clean2.svg';
@@ -12,6 +12,9 @@ class ImageHelper{
   static String adsImg2 = '${pathImg}ads2.png';
   static String adsImg3 = '${pathImg}ads3.png';
   static String adsImg4 = '${pathImg}ads4.png';
+  static String logo = '${pathImg}logo.gif';
+  static String imageApp = '${pathImg}imgeApp.jpeg';
+  static String search = '${pathImg}search.png';
 
   //Icons
   static String pathIcon = 'assets/icon/';

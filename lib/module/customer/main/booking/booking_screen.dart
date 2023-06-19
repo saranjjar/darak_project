@@ -117,7 +117,7 @@ class BookingScreen extends StatelessWidget {
  var item = _controller.bookingList[index].data();
     return Container(
       decoration: BoxDecoration(
-          color:ColorHelper.offPurpleColor,
+          color:ColorHelper.light1,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: ColorHelper.offPurpleColor)),
       child: Padding(
