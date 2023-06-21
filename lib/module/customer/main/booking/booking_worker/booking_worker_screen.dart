@@ -103,7 +103,7 @@ class BookingWorkerScreen extends StatelessWidget {
   TextStyle _buildTextStyle() => TextStyle(fontSize: 15,fontFamily: TextHelper.satoshiBold);
 
   //completed
-  RefreshIndicator getCompletedRefresh(){
+  Widget getCompletedRefresh(){
     return RefreshIndicator(
         onRefresh: _controller.asyncLoadCompleted,
         child: _controller.completedList.isEmpty
@@ -122,7 +122,7 @@ class BookingWorkerScreen extends StatelessWidget {
   }
   Widget _buildCompletedMainBody() {
     return ListView.separated(
-      physics: const BouncingScrollPhysics(),
+      physics: const AlwaysScrollableScrollPhysics(),
       itemBuilder:(context,index){
         return _buildCompletedListItem(index);
       },
@@ -148,7 +148,7 @@ class BookingWorkerScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: ColorHelper.offPurpleColor)),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -162,6 +162,18 @@ class BookingWorkerScreen extends StatelessWidget {
                     SizedBox(height: 10.h,),
                     _buildItem(icon: ImageHelper.priceIcon,title: '${item.price}\$'),
                     SizedBox(height: 10.h,),
+                    Row(
+                      children: [
+                        SvgPicture.asset(ImageHelper.starIcon),
+                        const SizedBox(width: 5,),
+                        SvgPicture.asset(ImageHelper.starIcon),
+                        const SizedBox(width: 5,),
+                        SvgPicture.asset(ImageHelper.starIcon),
+                        const SizedBox(width: 5,),
+                        SvgPicture.asset(ImageHelper.starIcon),
+
+                      ],
+                    )
                   ],
                 ),
               ),
@@ -191,7 +203,7 @@ class BookingWorkerScreen extends StatelessWidget {
   }
   Widget _buildUpComingMainBody() {
     return ListView.separated(
-      physics: const BouncingScrollPhysics(),
+      physics: const AlwaysScrollableScrollPhysics(),
       itemBuilder:(context,index){
         return _buildUpComingListItem(index);
       },
@@ -262,7 +274,7 @@ class BookingWorkerScreen extends StatelessWidget {
 
   Widget _buildMainBody() {
     return ListView.separated(
-      physics: const BouncingScrollPhysics(),
+      physics: const AlwaysScrollableScrollPhysics(),
       itemBuilder:(context,index)=>_buildListItem(index),
       separatorBuilder: (context,index)=>SizedBox(height: 10.h,),
       itemCount: _controller.bookingList.length,

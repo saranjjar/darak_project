@@ -1,13 +1,10 @@
 import 'package:darak_project/Application/app_binding/app_binding.dart';
 import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/firebase_options.dart';
-import 'package:darak_project/module/onboarding/onboarding_screen.dart';
-import 'package:darak_project/module/splash/splash_controller.dart';
 import 'package:darak_project/services/common/config.dart';
 import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:darak_project/services/common/user_store.dart';
 import 'package:darak_project/theme.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

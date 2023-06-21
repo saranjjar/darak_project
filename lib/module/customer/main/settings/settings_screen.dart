@@ -1,5 +1,6 @@
 import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
+import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:darak_project/module/customer/customer_auth/customer_sign_up/sign_up_customer_controller.dart';
 import 'package:darak_project/module/customer/main/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class SettingsScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor: ColorHelper.blueAccent,
+                      backgroundColor: ColorHelper.primaryColor,
                       radius:30.r,
                       child: const Icon(Icons.notifications,color: Colors.white,size: 28,),
                     ),
@@ -40,15 +41,15 @@ class SettingsScreen extends StatelessWidget {
                       child: Text(
                         'Notification',
                         style: TextStyle(
-                            color:ColorHelper.blueAccent,
-                            fontSize: 20.sp
+                            fontSize: 18,
+                            fontFamily: TextHelper.satoshiMedium
                         ),
                       ),
                     ),
                     Switch(
                       value: controller.isSwitchedNo,
                       onChanged: controller.onChangedNo,
-                      activeTrackColor: ColorHelper.blueAccent,
+                      activeTrackColor: ColorHelper.primaryColor,
                       activeColor: Colors.white,
                     ),
                   ],
@@ -70,24 +71,24 @@ class SettingsScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor: ColorHelper.blueAccent,
+                      backgroundColor: ColorHelper.primaryColor,
                       radius:30.r,
                       child: const Icon(Icons.nightlight_round_rounded,color: Colors.white,size: 28,),
                     ),
                     SizedBox(width: 20.w,),
-                    const Expanded(
+                     Expanded(
                       child: Text(
                         'Night System',
                         style: TextStyle(
-                            color: ColorHelper.blueAccent,
-                            fontSize: 20
+                            fontSize: 18,
+                            fontFamily: TextHelper.satoshiMedium
                         ),
                       ),
                     ),
                     Switch(
                       value: controller.isSwitchedMo,
                       onChanged: controller.onChangedMo,
-                      activeTrackColor: ColorHelper.blueAccent,
+                      activeTrackColor: ColorHelper.primaryColor,
                       activeColor: Colors.white,
                     ),
                   ],
@@ -135,7 +136,7 @@ class SettingsScreen extends StatelessWidget {
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundColor: ColorHelper.blueAccent,
+                    backgroundColor: ColorHelper.primaryColor,
                     radius:30.r,
                     child: Icon(iconData,color: Colors.white,size: 28,),
                   ),
@@ -143,13 +144,15 @@ class SettingsScreen extends StatelessWidget {
                   Expanded(
                       child: Text(
                         settings,
-                        style: const TextStyle(
-                            color: ColorHelper.blueAccent,
-                            fontSize: 20
+                        style:  TextStyle(
+
+                            fontSize: 18,
+                            fontFamily: TextHelper.satoshiMedium
+
                         ),
                       ),
                   ),
-                  const Icon(Icons.arrow_forward,color: ColorHelper.blueAccent)
+                  const Icon(Icons.arrow_forward,color: ColorHelper.primaryColor)
 
                 ],
               ),

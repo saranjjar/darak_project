@@ -122,7 +122,7 @@ class BookingScreen extends StatelessWidget {
    }
    Widget _buildCompletedMainBody() {
      return ListView.separated(
-       physics: const BouncingScrollPhysics(),
+       physics: const AlwaysScrollableScrollPhysics(),
        itemBuilder:(context,index){
          return _buildCompletedListItem(index);
        },
@@ -154,7 +154,7 @@ class BookingScreen extends StatelessWidget {
                    children: [
                      Text(item.subServiceName!,style: _buildTextStyle1(font:16),maxLines: 1,overflow: TextOverflow.ellipsis,),
                      SizedBox(height: 10.h,),
-                     _buildItem(icon: ImageHelper.profileIcon,title: item.nameCustomer!),
+                     _buildItem(icon: ImageHelper.profileIcon,title: item.worker!),
                      SizedBox(height: 10.h,),
                      _buildItem(icon: ImageHelper.bookIcon,title: '${item.date!} ${item.time!}'),
                      SizedBox(height: 10.h,),
@@ -162,7 +162,13 @@ class BookingScreen extends StatelessWidget {
                      SizedBox(height: 10.h,),
                      _buildItem(icon: ImageHelper.priceIcon,title: '${item.price}\$'),
                      SizedBox(height: 10.h,),
-                     D_MaterialButton(color: ColorHelper.primaryColor,onPressed: (){}, child: Text('Rate&Review',style: buildTextStyleBtn(),))
+                     D_MaterialButton(
+                     width: double.infinity,
+                         color: ColorHelper.primaryColor,onPressed: (){
+
+                     }, child: Text('Rate & Review',style: buildTextStyleBtn(),
+
+                     ))
                    ],
                  ),
                ),
@@ -193,7 +199,7 @@ class BookingScreen extends StatelessWidget {
    }
    Widget _buildUpComingsMainBody() {
      return ListView.separated(
-       physics: const BouncingScrollPhysics(),
+       physics: const AlwaysScrollableScrollPhysics(),
        itemBuilder:(context,index){
          return _buildUpComingsListItem(index);
        },
@@ -265,7 +271,7 @@ class BookingScreen extends StatelessWidget {
 
   Widget _buildMainBody() {
     return ListView.separated(
-        physics: const BouncingScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         itemBuilder:(context,index)=>_buildListItem(index),
         separatorBuilder: (context,index)=>SizedBox(height: 10.h,),
         itemCount: _controller.bookingsList.length,

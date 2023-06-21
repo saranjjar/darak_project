@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:darak_project/Application/app_router/app_router.dart';
-import 'package:darak_project/const.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
 import 'package:darak_project/model/msg_content.dart';
 import 'package:darak_project/module/customer/main/chat/in_chat/inchat_controller.dart';
-import 'package:darak_project/services/common/shared_pref.dart';
 import 'package:darak_project/widgets/textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

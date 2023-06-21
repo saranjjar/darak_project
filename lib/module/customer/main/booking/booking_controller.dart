@@ -77,12 +77,12 @@ class BookingController extends GetxController{
   bool isLoadingComp = false;
   Future<void> asyncLoadCompleted() async{
     try{
-      isLoadingUp = true;
+      isLoadingComp = true;
       update();
       var fromBooking = await db.collection("booking").withConverter(
           fromFirestore: BookingReview.fromFirestore,
           toFirestore: (BookingReview book,options)=>book.toFirestore()).where(
-          "toUid",isEqualTo:token
+          "uid",isEqualTo:token
       ).where('status',isEqualTo: 'completed').get();
 
       if(fromBooking.docs.isNotEmpty){
@@ -94,11 +94,11 @@ class BookingController extends GetxController{
         });
       }
 
-      isLoadingUp = false;
+      isLoadingComp = false;
       update();
     }catch(error){
       print(error.toString());
-      isLoadingUp = false;
+      isLoadingComp = false;
       update();
     }
   }

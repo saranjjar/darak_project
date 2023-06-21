@@ -2,14 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:darak_project/model/booking_review.dart';
 import 'package:darak_project/services/common/user_store.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BookingWorkerController extends GetxController{
   RxList<QueryDocumentSnapshot<BookingReview>> bookingList = <QueryDocumentSnapshot<BookingReview>> [].obs;
   RxList<QueryDocumentSnapshot<BookingReview>> upComingList = <QueryDocumentSnapshot<BookingReview>> [].obs;
   RxList<QueryDocumentSnapshot<BookingReview>> completedList = <QueryDocumentSnapshot<BookingReview>> [].obs;
+
   final token = UserStore.t0.token;
   final db = FirebaseFirestore.instance;
+  ScrollController bookScrolling = ScrollController();
 
   @override
   void onReady(){
@@ -108,6 +111,7 @@ class BookingWorkerController extends GetxController{
      try{ db.collection("booking").doc(idDoc).update({'status': valueSt});
       print('Status updated successfully');
     await asyncLoadPendingBook();
+    update();
     }
         catch(error) {
       print('Failed to update status: $error');
