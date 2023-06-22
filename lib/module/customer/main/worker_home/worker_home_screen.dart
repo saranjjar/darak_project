@@ -2,6 +2,7 @@ import 'package:darak_project/Application/app_router/app_router.dart';
 import 'package:darak_project/helpers/colors_helper.dart';
 import 'package:darak_project/helpers/image_helper.dart';
 import 'package:darak_project/helpers/texts_helper.dart';
+import 'package:darak_project/module/bar_graph/my_baragraph.dart';
 import 'package:darak_project/module/customer/main/worker_home/add_service/add_service_screen.dart';
 import 'package:darak_project/module/customer/main/worker_home/worker_home_controller.dart';
 import 'package:darak_project/widgets/components/components.dart';
@@ -13,7 +14,7 @@ import 'package:get/get.dart';
 class WorkerHomeScreen extends StatelessWidget {
    WorkerHomeScreen({Key? key}) : super(key: key);
     final _controller = Get.put(WorkerHomeController());
-    
+    List<double> monthlySummary = [10,1,3,20,30,10,20,30,12,1,20,18];
   @override
   Widget build(BuildContext context) {
     return
@@ -76,15 +77,18 @@ class WorkerHomeScreen extends StatelessWidget {
                      style:
                      _buildTextStyle(),
                    ),
-                   SizedBox(height: 15.h,),
+                   SizedBox(height: 20.h,),
                    Container(
                      width: double.infinity,
                      height: 130.h,
                      decoration: BoxDecoration(
-                       color: ColorHelper.primaryColor,
+                       color: ColorHelper.light1,
                        borderRadius: BorderRadius.circular(12)
                      ),
+                     child: MyBaragraph(monthlySummary: monthlySummary,),
                    ),
+                   SizedBox(height: 20.h,),
+
                    _controller.serviceList.isEmpty
                        ?
                    Center(child: Padding(
