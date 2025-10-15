@@ -1,16 +1,4 @@
-# handyhome_project
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="698" height="401" alt="handyhome" src="https://github.com/user-attachments/assets/90bb5b81-9dfc-4e60-85ab-73cb2523f9f5" /
+  >
+Darak App is a mobile application that connects homeowners directly with nearby service providers such as plumbers, electricians, and air conditioning technicians.
+The app allows users to browse available workers based on location, price, and rating, enabling quick and reliable booking for home maintenance services.
